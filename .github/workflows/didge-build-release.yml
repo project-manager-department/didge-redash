@@ -1,0 +1,66 @@
+name: Didge Redash Workflows
+
+permissions:
+  id-token: write
+  contents: read
+
+on:
+  pull_request:
+    branches:
+      - '**'
+  push:
+    branches:
+      - uat
+      - production
+
+env:
+  REPOSITORY: didge-redash # ecr repo
+
+jobs:
+  # the way it works,
+  # 1. it will run automatically, but will fail
+  # 2. WHEN WE RE-RUN it. then it will trigger actual next release job.
+  build-trigger:
+    name: 'Build: Prepare (Re-run the job to trigger it)'
+    runs-on: ubuntu-latest
+    outputs:
+      CONTINUE_JOBS: ${{ steps.manual-trigger.outputs.CONTINUE_JOBS }}
+    steps:
+      - name: manual-trigger
+        id: manual-trigger
+        uses: IncludeHealth/manual-trigger@v1
+        with:
+          RUN_NAME: 'build'
+
+  build:
+    name: 'Build'
+    runs-on: ubuntu-latest
+    needs:
+      - build-trigger
+    if: ${{ needs.build-trigger.outputs.CONTINUE_JOBS == 'true' }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS - Assume Role
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          audience: sts.amazonaws.com
+          aws-region: ${{ vars.BUILD_AWS_REGION }}
+          role-to-assume: ${{ vars.BUILD_AWS_ROLE }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+        with:
+          registries: ${{ vars.BUILD_ECR_ACCOUNT_ID }}
+
+      - name: Build, tag, and push docker image to Amazon ECR
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          docker build -f ./Dockerfile.backend -t $REGISTRY/$REPOSITORY:$GITHUB_SHA -t $REGISTRY/$REPOSITORY:latest .
+          docker push $REGISTRY/$REPOSITORY:$GITHUB_SHA
+          docker push $REGISTRY/$REPOSITORY:latest
+
+  # ------------------------------------------------------------------------
