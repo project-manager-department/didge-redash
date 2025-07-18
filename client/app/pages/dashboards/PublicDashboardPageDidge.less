@@ -1,0 +1,529 @@
+/**
+  * PublicDashboardPageDidge.less
+  * This file contains styles for the public dashboard page with didge styling.
+  * It ensures the layout is responsive and visually appealing.
+  */
+
+// Global background for didge dark theme
+body {
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+
+.public-dashboard-page {
+  width: 100%;
+  background-color: #0f172a;
+  color: #e2e8f0;
+
+  .page-header-wrapper {
+    margin-top: 0;
+    margin-left: 15px;
+    margin-right: 15px;
+    background-color: transparent;
+
+    h3 {
+      color: #e2e8f0;
+      font-weight: 600;
+    }
+  }
+
+
+
+  > .container {
+    min-height: calc(100vh - 95px);
+    background-color: #0f172a;
+
+    // fix for dark theme
+    > .bg-white {
+      background-color: #1e293b !important;
+    }
+  }
+
+  .loading-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e2e8f0;
+  }
+
+  #footer {
+    height: 95px;
+    text-align: center;
+    background-color: #0f172a;
+    color: #94a3b8;
+    border-top: 1px solid #1e293b;
+
+    padding-top: 30px;
+    img {
+      display: none;
+    }
+  }
+
+  // Parameter overrides for dark theme
+  .parameter-block {
+    background: #1e293b;
+    color: #e2e8f0;
+    border: none !important;
+  }
+
+  .parameter-apply-button {
+    background-color: #1e293b !important;
+    border: 1px solid #334155;
+
+    button {
+      color: #60a5fa !important;
+      border-color: #60a5fa !important;
+      background-color: transparent;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: #1e3a8a !important;
+        color: #93c5fd !important;
+      }
+    }
+  }
+
+  // Widget overrides for dark theme
+  .widget-wrapper {
+    background-color: #1e293b;
+    color: #e2e8f0;
+
+    .tile {
+      background-color: #1e293b !important;
+      border: 1px solid #334155;
+      
+      .body-container {
+        background-color: #1e293b !important;
+        
+        .widget-visualization {
+          background-color: #1e293b !important;
+          color: #e2e8f0;
+        }
+      }
+
+      .t-header {
+        background-color: #1e293b !important;
+        color: #e2e8f0;
+        border-bottom: 1px solid #334155;
+
+        .query-link {
+          color: #60a5fa !important;
+          
+          &:not(.visualization-name) {
+            color: #94a3b8 !important;
+          }
+          
+          &:hover, &:focus {
+            color: #93c5fd !important;
+          }
+        }
+        
+        .visualization-name:empty + span {
+          color: #94a3b8 !important;
+        }
+      }
+
+      .tile__bottom-control {
+        background-color: #1e293b !important;
+        border-top: 1px solid #334155;
+        
+        a, .plain-button {
+          color: #94a3b8 !important;
+          
+          &:hover, &:focus {
+            color: #e2e8f0 !important;
+          }
+        }
+      }
+    }
+  }
+
+  // Ant Design overrides for dark theme
+  .ant-input {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+    color: #e2e8f0 !important;
+
+    &:focus, &:hover {
+      border-color: #60a5fa !important;
+      box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2) !important;
+    }
+  }
+
+  .ant-picker {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+    color: #e2e8f0 !important;
+
+    &:hover, &:focus {
+      // border-color: #60a5fa !important;
+      box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2) !important;
+    }
+
+    .ant-picker-input > input {
+      background-color: transparent !important;
+      color: #e2e8f0 !important;
+
+      &::placeholder {
+        color: #94a3b8 !important;
+      }
+    }
+
+    .ant-picker-suffix {
+      color: #94a3b8 !important;
+    }
+  }
+
+  .ant-picker-dropdown {
+    .ant-picker-panel-container {
+      background-color: #1e293b !important;
+      border-color: #334155 !important;
+
+      .ant-picker-panel {
+        background-color: #1e293b !important;
+        border-color: #334155 !important;
+
+        .ant-picker-header {
+          border-color: #334155 !important;
+
+          button {
+            color: #e2e8f0 !important;
+
+            &:hover {
+              background-color: #334155 !important;
+              color: #60a5fa !important;
+            }
+          }
+        }
+
+        .ant-picker-body {
+          .ant-picker-content {
+            th, td {
+              color: #e2e8f0 !important;
+            }
+
+            .ant-picker-cell {
+              &:hover {
+                .ant-picker-cell-inner {
+                  background-color: #334155 !important;
+                }
+              }
+
+              &.ant-picker-cell-selected {
+                .ant-picker-cell-inner {
+                  background-color: #60a5fa !important;
+                  color: #1e293b !important;
+                }
+              }
+
+              &.ant-picker-cell-today {
+                .ant-picker-cell-inner {
+                  border-color: #60a5fa !important;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .ant-select {
+    .ant-select-selector {
+      background-color: #1e293b !important;
+      border-color: #334155 !important;
+      color: #e2e8f0 !important;
+    }
+
+    &:hover .ant-select-selector,
+    &.ant-select-focused .ant-select-selector {
+      border-color: #60a5fa !important;
+      box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2) !important;
+    }
+
+    &.ant-select-multiple {
+      .ant-select-selector {
+        background-color: #1e293b !important;
+        border-color: #334155 !important;
+
+        .ant-select-selection-search {
+          .ant-select-selection-search-input {
+            background-color: transparent !important;
+            color: #e2e8f0 !important;
+          }
+        }
+
+        .ant-select-selection-item {
+          background-color: #334155 !important;
+          border-color: #475569 !important;
+          color: #e2e8f0 !important;
+
+          .ant-select-selection-item-remove {
+            color: #94a3b8 !important;
+
+            &:hover {
+              color: #e2e8f0 !important;
+            }
+          }
+        }
+
+        .ant-select-selection-placeholder {
+          color: #94a3b8 !important;
+        }
+      }
+
+      &:hover .ant-select-selector,
+      &.ant-select-focused .ant-select-selector {
+        border-color: #60a5fa !important;
+        box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2) !important;
+      }
+    }
+  }
+
+  .ant-select-dropdown {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+
+    .ant-select-item {
+      color: #e2e8f0 !important;
+
+      &:hover, &.ant-select-item-option-selected {
+        background-color: #334155 !important;
+      }
+    }
+  }
+
+  .ant-table {
+    background-color: #1e293b !important;
+    color: #e2e8f0 !important;
+
+    .ant-table-thead > tr > th {
+      background-color: #334155 !important;
+      color: #e2e8f0 !important;
+      border-color: #475569 !important;
+    }
+
+    .ant-table-tbody > tr > td {
+      background-color: #1e293b !important;
+      color: #e2e8f0 !important;
+      border-color: #334155 !important;
+    }
+
+    .ant-table-tbody > tr:hover > td {
+      background-color: #334155 !important;
+    }
+  }
+
+  .ant-pagination {
+    .ant-pagination-item {
+      background-color: #1e293b !important;
+      border-color: #334155 !important;
+      color: #e2e8f0 !important;
+
+      a {
+        color: #e2e8f0 !important;
+      }
+
+      &:hover, &:focus {
+        background-color: #334155 !important;
+        border-color: #60a5fa !important;
+      }
+
+      &.ant-pagination-item-active {
+        background-color: #60a5fa !important;
+        border-color: #60a5fa !important;
+        color: #1e293b !important;
+
+        a {
+          color: #1e293b !important;
+        }
+      }
+    }
+
+    .ant-pagination-prev,
+    .ant-pagination-next {
+      .ant-pagination-item-link {
+        background-color: #1e293b !important;
+        border-color: #334155 !important;
+        color: #e2e8f0 !important;
+
+        &:hover {
+          background-color: #334155 !important;
+          border-color: #60a5fa !important;
+        }
+      }
+    }
+  }
+
+  .ant-btn {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+    color: #e2e8f0 !important;
+
+    &:hover, &:focus {
+      background-color: #334155 !important;
+      border-color: #60a5fa !important;
+      color: #e2e8f0 !important;
+    }
+
+    &.ant-btn-primary {
+      background-color: #60a5fa !important;
+      border-color: #60a5fa !important;
+      color: #1e293b !important;
+
+      &:hover, &:focus {
+        background-color: #93c5fd !important;
+        border-color: #93c5fd !important;
+      }
+    }
+  }
+
+  .ant-btn-group {
+    &.ant-dropdown-button {
+      &.dynamic-button {
+        .ant-btn {
+          background-color: #1e293b !important;
+          border-color: #334155 !important;
+          color: #e2e8f0 !important;
+
+          &:hover, &:focus {
+            background-color: #334155 !important;
+            border-color: #60a5fa !important;
+            color: #e2e8f0 !important;
+          }
+
+          &:first-child {
+            border-right-color: #334155 !important;
+          }
+
+          &.ant-btn-primary {
+            background-color: #60a5fa !important;
+            border-color: #60a5fa !important;
+            color: #1e293b !important;
+
+            &:hover, &:focus {
+              background-color: #93c5fd !important;
+              border-color: #93c5fd !important;
+            }
+          }
+        }
+      }
+    }
+
+    .ant-btn {
+      &:not(:first-child) {
+        border-left-color: #334155 !important;
+      }
+
+      &:not(:last-child) {
+        border-right-color: #334155 !important;
+      }
+    }
+  }
+
+  .ant-tooltip {
+    .ant-tooltip-content {
+      .ant-tooltip-inner {
+        background-color: #1e293b !important;
+        color: #e2e8f0 !important;
+      }
+    }
+  }
+
+  .ant-dropdown-menu {
+    background-color: #1e293b !important;
+
+    .ant-dropdown-menu-item {
+      color: #e2e8f0 !important;
+
+      &:hover {
+        background-color: #334155 !important;
+      }
+
+      &.ant-dropdown-menu-item-selected {
+        background-color: #60a5fa !important;
+        color: #1e293b !important;
+
+        &:hover {
+          background-color: #93c5fd !important;
+          color: #1e293b !important;
+        }
+      }
+    }
+  }
+
+  // Plotly overrides for dark theme - only background colors
+  .plotly {
+    .plot-container {
+      filter: invert(75%) hue-rotate(180deg);
+    }
+
+    // background-color: #1e293b !important;
+
+    .main-svg {
+      background-color: transparent !important;
+
+      .legend {
+        .bg {
+          fill: transparent !important;
+        }
+
+        .legendtext {
+          color: #e2e8f0 !important;
+          fill: #e2e8f0 !important;
+        }
+      }
+
+      .annotation {
+        .annotation-text {
+         
+          color: #e2e8f0 !important;
+          fill: #e2e8f0 !important; 
+        }
+      }
+    }
+
+    .xtick, .ytick {
+      text {
+          color: #e2e8f0 !important;
+          fill: #e2e8f0 !important; 
+      }
+    }
+  }
+
+  // Custom scrollbar styling for dark theme
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0f172a;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 4px;
+    border: 1px solid #1e293b;
+
+    &:hover {
+      background: #475569;
+    }
+
+    &:active {
+      background: #60a5fa;
+    }
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: #0f172a;
+  }
+
+  // Firefox scrollbar styling
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #334155 #0f172a;
+  }
+}
