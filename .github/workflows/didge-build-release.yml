@@ -128,3 +128,31 @@ jobs:
         uses: IncludeHealth/manual-trigger@v1
         with:
           RUN_NAME: 'redash-release-production'
+
+  redash-release-production-eks:
+    name: 'Production Redash: Deploy to EKS'
+    runs-on: ubuntu-latest
+    container: alpine/terragrunt:tf1.8.4
+    needs:
+      - redash-trigger-release-production
+    if: ${{ needs.redash-trigger-release-production.outputs.CONTINUE_JOBS == 'true' }}
+    environment: production
+    env:
+      TF_APP_DIR: 'infrastructure/didge/terragrunt/live/production/infra-redash'
+      TF_TOKEN_app_terraform_io: ${{ secrets.DEPLOY_TF_TOKEN_APP_TERRAFORM_IO }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Checkout CI/CD Repo
+        uses: actions/checkout@v4
+        with:
+          repository: project-manager-department/infrastructure
+          token: ${{ secrets.DEPLOY_GH_PAT_REPO_CICD }}
+          path: infrastructure
+          ref: 'master'
+
+      - name: 'Deploy EKS'
+        uses: ./.github/actions/deploy-eks
+        with:
+          appname: redash
