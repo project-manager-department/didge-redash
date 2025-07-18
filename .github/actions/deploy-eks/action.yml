@@ -1,0 +1,51 @@
+name: 'DeployEKS'
+description: 'Deploy to EKS'
+
+on:
+  workflow_call:
+    inputs:
+      appname:
+        required: true
+        type: string
+
+runs:
+  using: composite
+
+  steps:
+    - name: Check Vars
+      shell: bash
+      run: |
+        echo "- Build started on $(date)"
+        echo "image: $REPOSITORY:$GITHUB_SHA"
+        echo "TF_APP_DIR: $TF_APP_DIR"
+        echo "TF_TOKEN_app_terraform_io: $TF_TOKEN_app_terraform_io"
+
+    - name: Change image tag to :$GITHUB_SHA
+      shell: bash
+      run: |
+        cd $TF_APP_DIR
+        ./update_image.sh $APPNAME $GITHUB_SHA
+      env:
+        APPNAME: ${{ inputs.appname }}
+
+    - name: 'Terragrunt Apply & Update Repo'
+      shell: bash
+      run: |
+        cd $TF_APP_DIR
+        terragrunt init --terragrunt-non-interactive
+        terragrunt apply -auto-approve
+
+        git config user.name "github-actions[bot]"
+        git config user.email devops+github-actions[bot]@mfcsafe.com
+
+        # refresh git, in case race condition
+        git checkout -f
+        git pull origin master
+        ./update_image.sh $APPNAME $GITHUB_SHA
+
+        # push new update
+        git add .
+        git diff-index --quiet HEAD || git commit -m "update $APPNAME image to $GITHUB_SHA"
+        git push origin master
+      env:
+        APPNAME: ${{ inputs.appname }}
