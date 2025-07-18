@@ -71,7 +71,7 @@ jobs:
   redash-trigger-release-uat:
     name: 'UAT Redash: Prepare (Re-run the job to trigger it)'
     needs:
-      - uat
+      - build
     runs-on: ubuntu-latest
     outputs:
       CONTINUE_JOBS: ${{ steps.manual-trigger.outputs.CONTINUE_JOBS }}
@@ -118,7 +118,7 @@ jobs:
   redash-trigger-release-production:
     name: 'Production Redash: Prepare (Re-run the job to trigger it)'
     needs:
-      - production
+      - build
     runs-on: ubuntu-latest
     outputs:
       CONTINUE_JOBS: ${{ steps.manual-trigger.outputs.CONTINUE_JOBS }}
