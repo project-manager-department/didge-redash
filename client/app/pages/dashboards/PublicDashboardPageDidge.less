@@ -35,7 +35,7 @@ body {
 
     // fix for dark theme
     > .bg-white {
-      background-color: #1e293b !important;
+      background-color: #141e40 !important;
     }
   }
 
@@ -60,20 +60,34 @@ body {
   }
 
   // Parameter overrides for dark theme
+  .tiled {
+    background-color: #0E193C !important;
+    border: none !important;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  }
+
   .parameter-block {
-    background: #1e293b;
+    background: #141E40;
     color: #e2e8f0;
     border: none !important;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 8px 6px;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2);
   }
 
   .parameter-apply-button {
-    background-color: #1e293b !important;
-    border: 1px solid #334155;
+    background-color: #141E40 !important;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2);
 
     button {
       color: #60a5fa !important;
       border-color: #60a5fa !important;
       background-color: transparent;
+      border-radius: 6px;
 
       &:hover,
       &:focus,
@@ -86,26 +100,32 @@ body {
 
   // Widget overrides for dark theme
   .widget-wrapper {
-    background-color: #1e293b;
+    background-color: #0E193C;
     color: #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
 
     .tile {
-      background-color: #1e293b !important;
-      border: 1px solid #334155;
+      background-color: #141E40 !important;
+      border: none;
+      border-radius: 12px;
+      overflow: hidden;
       
-      .body-container {
-        background-color: #1e293b !important;
+      & .body-container {
+        background-color: #141E40 !important;
         
         .widget-visualization {
-          background-color: #1e293b !important;
+          background-color: #141E40 !important;
           color: #e2e8f0;
         }
       }
 
       .t-header {
-        background-color: #1e293b !important;
+        background-color: #0E193C !important;
         color: #e2e8f0;
-        border-bottom: 1px solid #334155;
+        border-bottom: 1px solid rgba(30, 58, 138, 0.3);
+        border-radius: 12px 12px 0 0;
 
         .query-link {
           color: #60a5fa !important;
@@ -124,9 +144,14 @@ body {
         }
       }
 
+      .body-row-auto {
+        background-color: #141E40 !important;
+      }
+
       .tile__bottom-control {
-        background-color: #1e293b !important;
-        border-top: 1px solid #334155;
+        background-color: #0E193C !important;
+        border-top: 1px solid rgba(30, 58, 138, 0.3);
+        border-radius: 0 0 12px 12px;
         
         a, .plain-button {
           color: #94a3b8 !important;
@@ -141,9 +166,10 @@ body {
 
   // Ant Design overrides for dark theme
   .ant-input {
-    background-color: #1e293b !important;
-    border-color: #334155 !important;
+    background-color: #141E40 !important;
+    border: 1px solid rgba(30, 58, 138, 0.5) !important;
     color: #e2e8f0 !important;
+    border-radius: 8px;
 
     &:focus, &:hover {
       border-color: #60a5fa !important;
@@ -152,12 +178,13 @@ body {
   }
 
   .ant-picker {
-    background-color: #1e293b !important;
-    border-color: #334155 !important;
+    background-color: #141E40 !important;
+    border: 1px solid rgba(30, 58, 138, 0.5) !important;
     color: #e2e8f0 !important;
+    border-radius: 8px;
 
     &:hover, &:focus {
-      // border-color: #60a5fa !important;
+      border-color: #60a5fa !important;
       box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2) !important;
     }
 
@@ -177,21 +204,24 @@ body {
 
   .ant-picker-dropdown {
     .ant-picker-panel-container {
-      background-color: #1e293b !important;
-      border-color: #334155 !important;
+      background-color: #0E193C !important;
+      border: none !important;
+      border-radius: 12px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
 
       .ant-picker-panel {
-        background-color: #1e293b !important;
-        border-color: #334155 !important;
+        background-color: #0E193C !important;
+        border: none !important;
 
         .ant-picker-header {
-          border-color: #334155 !important;
+          border-bottom: 1px solid rgba(30, 58, 138, 0.3) !important;
 
           button {
             color: #e2e8f0 !important;
+            border-radius: 6px;
 
             &:hover {
-              background-color: #334155 !important;
+              background-color: #141E40 !important;
               color: #60a5fa !important;
             }
           }
@@ -206,20 +236,23 @@ body {
             .ant-picker-cell {
               &:hover {
                 .ant-picker-cell-inner {
-                  background-color: #334155 !important;
+                  background-color: #141E40 !important;
+                  border-radius: 6px;
                 }
               }
 
               &.ant-picker-cell-selected {
                 .ant-picker-cell-inner {
                   background-color: #60a5fa !important;
-                  color: #1e293b !important;
+                  color: #0E193C !important;
+                  border-radius: 6px;
                 }
               }
 
               &.ant-picker-cell-today {
                 .ant-picker-cell-inner {
                   border-color: #60a5fa !important;
+                  border-radius: 6px;
                 }
               }
             }
@@ -231,9 +264,10 @@ body {
 
   .ant-select {
     .ant-select-selector {
-      background-color: #1e293b !important;
-      border-color: #334155 !important;
+      background-color: #141E40 !important;
+      border: 1px solid rgba(30, 58, 138, 0.5) !important;
       color: #e2e8f0 !important;
+      border-radius: 8px;
     }
 
     &:hover .ant-select-selector,
@@ -244,8 +278,8 @@ body {
 
     &.ant-select-multiple {
       .ant-select-selector {
-        background-color: #1e293b !important;
-        border-color: #334155 !important;
+        background-color: #141E40 !important;
+        border: 1px solid rgba(30, 58, 138, 0.5) !important;
 
         .ant-select-selection-search {
           .ant-select-selection-search-input {
@@ -255,9 +289,10 @@ body {
         }
 
         .ant-select-selection-item {
-          background-color: #334155 !important;
-          border-color: #475569 !important;
+          background-color: #0E193C !important;
+          border: none !important;
           color: #e2e8f0 !important;
+          border-radius: 6px;
 
           .ant-select-selection-item-remove {
             color: #94a3b8 !important;
@@ -282,61 +317,68 @@ body {
   }
 
   .ant-select-dropdown {
-    background-color: #1e293b !important;
-    border-color: #334155 !important;
+    background-color: #0E193C !important;
+    border: none !important;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
 
     .ant-select-item {
       color: #e2e8f0 !important;
+      border-radius: 4px;
+      margin: 2px 4px;
 
       &:hover, &.ant-select-item-option-selected {
-        background-color: #334155 !important;
+        background-color: #141E40 !important;
       }
     }
   }
 
   .ant-table {
-    background-color: #1e293b !important;
+    background-color: #0E193C !important;
     color: #e2e8f0 !important;
+    border-radius: 12px;
+    overflow: hidden;
 
     .ant-table-thead > tr > th {
-      background-color: #334155 !important;
+      background-color: #141E40 !important;
       color: #e2e8f0 !important;
-      border-color: #475569 !important;
+      border-color: #1e3a8a !important;
     }
 
     .ant-table-tbody > tr > td {
-      background-color: #1e293b !important;
+      background-color: #0E193C !important;
       color: #e2e8f0 !important;
-      border-color: #334155 !important;
+      border-color: #1e3a8a !important;
     }
 
     .ant-table-tbody > tr:hover > td {
-      background-color: #334155 !important;
+      background-color: #141E40 !important;
     }
   }
 
   .ant-pagination {
     .ant-pagination-item {
-      background-color: #1e293b !important;
-      border-color: #334155 !important;
+      background-color: #141E40 !important;
+      border-color: #1e3a8a !important;
       color: #e2e8f0 !important;
+      border-radius: 6px;
 
       a {
         color: #e2e8f0 !important;
       }
 
       &:hover, &:focus {
-        background-color: #334155 !important;
+        background-color: #0E193C !important;
         border-color: #60a5fa !important;
       }
 
       &.ant-pagination-item-active {
         background-color: #60a5fa !important;
         border-color: #60a5fa !important;
-        color: #1e293b !important;
+        color: #0E193C !important;
 
         a {
-          color: #1e293b !important;
+          color: #0E193C !important;
         }
       }
     }
@@ -344,12 +386,13 @@ body {
     .ant-pagination-prev,
     .ant-pagination-next {
       .ant-pagination-item-link {
-        background-color: #1e293b !important;
-        border-color: #334155 !important;
+        background-color: #141E40 !important;
+        border-color: #1e3a8a !important;
         color: #e2e8f0 !important;
+        border-radius: 6px;
 
         &:hover {
-          background-color: #334155 !important;
+          background-color: #0E193C !important;
           border-color: #60a5fa !important;
         }
       }
@@ -357,12 +400,13 @@ body {
   }
 
   .ant-btn {
-    background-color: #1e293b !important;
-    border-color: #334155 !important;
+    background-color: #141E40 !important;
+    border: 1px solid rgba(30, 58, 138, 0.5) !important;
     color: #e2e8f0 !important;
+    border-radius: 8px;
 
     &:hover, &:focus {
-      background-color: #334155 !important;
+      background-color: #0E193C !important;
       border-color: #60a5fa !important;
       color: #e2e8f0 !important;
     }
@@ -370,7 +414,7 @@ body {
     &.ant-btn-primary {
       background-color: #60a5fa !important;
       border-color: #60a5fa !important;
-      color: #1e293b !important;
+      color: #0E193C !important;
 
       &:hover, &:focus {
         background-color: #93c5fd !important;
@@ -383,24 +427,29 @@ body {
     &.ant-dropdown-button {
       &.dynamic-button {
         .ant-btn {
-          background-color: #1e293b !important;
-          border-color: #334155 !important;
+          background-color: #141E40 !important;
+          border-color: #1e3a8a !important;
           color: #e2e8f0 !important;
 
           &:hover, &:focus {
-            background-color: #334155 !important;
+            background-color: #0E193C !important;
             border-color: #60a5fa !important;
             color: #e2e8f0 !important;
           }
 
           &:first-child {
-            border-right-color: #334155 !important;
+            border-right-color: #1e3a8a !important;
+            border-radius: 8px 0 0 8px;
+          }
+
+          &:last-child {
+            border-radius: 0 8px 8px 0;
           }
 
           &.ant-btn-primary {
             background-color: #60a5fa !important;
             border-color: #60a5fa !important;
-            color: #1e293b !important;
+            color: #0E193C !important;
 
             &:hover, &:focus {
               background-color: #93c5fd !important;
@@ -413,11 +462,23 @@ body {
 
     .ant-btn {
       &:not(:first-child) {
-        border-left-color: #334155 !important;
+        border-left-color: #1e3a8a !important;
       }
 
       &:not(:last-child) {
-        border-right-color: #334155 !important;
+        border-right-color: #1e3a8a !important;
+      }
+
+      &:first-child {
+        border-radius: 8px 0 0 8px;
+      }
+
+      &:last-child {
+        border-radius: 0 8px 8px 0;
+      }
+
+      &:only-child {
+        border-radius: 8px;
       }
     }
   }
@@ -425,29 +486,35 @@ body {
   .ant-tooltip {
     .ant-tooltip-content {
       .ant-tooltip-inner {
-        background-color: #1e293b !important;
+        background-color: #0E193C !important;
         color: #e2e8f0 !important;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
       }
     }
   }
 
   .ant-dropdown-menu {
-    background-color: #1e293b !important;
+    background-color: #0E193C !important;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
 
     .ant-dropdown-menu-item {
       color: #e2e8f0 !important;
+      border-radius: 4px;
+      margin: 2px 4px;
 
       &:hover {
-        background-color: #334155 !important;
+        background-color: #141E40 !important;
       }
 
       &.ant-dropdown-menu-item-selected {
         background-color: #60a5fa !important;
-        color: #1e293b !important;
+        color: #0E193C !important;
 
         &:hover {
           background-color: #93c5fd !important;
-          color: #1e293b !important;
+          color: #0E193C !important;
         }
       }
     }
