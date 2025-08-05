@@ -614,6 +614,50 @@ body {
     .main-svg {
       background-color: transparent !important;
 
+      // Grid lines styling - make them more subtle - multiple selectors for different plotly structures
+      .gridlayer {
+        .xgrid, .ygrid {
+          .gridlines {
+            path {
+              stroke: #64748b !important; // Lighter grey grid lines - more visible but still subtle
+              stroke-width: 0.5px !important;
+              opacity: 0.4 !important;
+            }
+          }
+        }
+      }
+
+      // Alternative grid line selectors
+      .cartesianlayer {
+        .subplot {
+          .gridlayer {
+            path {
+              stroke: #64748b !important;
+              stroke-width: 0.5px !important;
+              opacity: 0.4 !important;
+            }
+          }
+        }
+      }
+
+      // Direct path targeting for grid lines
+      path[class*="grid"] {
+        stroke: #64748b !important;
+        stroke-width: 0.5px !important;
+        opacity: 0.4 !important;
+      }
+
+      // Zero lines styling
+      .zerolinelayer {
+        .xzerolayer, .yzerolayer {
+          .zl {
+            stroke: #4b5563 !important; // Slightly more visible zero lines
+            stroke-width: 1px !important;
+            opacity: 0.4 !important;
+          }
+        }
+      }
+
       .legend {
         .bg {
           fill: transparent !important;
@@ -631,6 +675,18 @@ body {
           color: #e2e8f0 !important;
           fill: #e2e8f0 !important; 
         }
+      }
+    }
+
+    // Additional global grid styling for plotly
+    svg {
+      .gridlayer path,
+      path[class*="grid"],
+      .xgrid path,
+      .ygrid path {
+        stroke: #64748b !important;
+        stroke-width: 0.5px !important;
+        opacity: 0.4 !important;
       }
     }
 
