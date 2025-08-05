@@ -27,8 +27,6 @@ body {
     }
   }
 
-
-
   > .container {
     min-height: calc(100vh - 95px);
     background-color: #0f172a;
@@ -62,14 +60,14 @@ body {
 
   // Parameter overrides for dark theme
   .tiled {
-    background: #141E40 !important;
+    background: #141e40 !important;
     border: 1px solid rgba(30, 58, 138, 0.3) !important;
     border-radius: 12px;
     box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2);
   }
 
   .parameter-block {
-    background: #141E40;
+    background: #141e40;
     color: #e2e8f0;
     border: none !important;
     border-radius: 8px;
@@ -79,7 +77,7 @@ body {
   }
 
   .parameter-apply-button {
-    background-color: #141E40 !important;
+    background-color: #141e40 !important;
     border: none;
     border-radius: 8px;
     box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2);
@@ -101,32 +99,29 @@ body {
 
   // Widget overrides for dark theme
   .widget-wrapper {
-    background: #141E40;
+    background: #141e40;
     color: #e2e8f0;
     border-radius: 12px;
     overflow: visible;
-    box-shadow: 
-      0 2px 4px -1px rgba(0, 0, 0, 0.2), 
-      0 1px 2px -1px rgba(0, 0, 0, 0.1),
-      0 0 0 1px rgba(30, 58, 138, 0.2);
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 1px 2px -1px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(30, 58, 138, 0.2);
 
     .tile {
-      background: #0E193C !important;
+      background: #0e193c !important;
       border: none;
       border-radius: 12px;
       overflow: visible;
-      
+
       & .body-container {
-        background: #0E193C !important;
-        
-        .widget-visualization {
+        background: #0e193c !important;
+
+        & .widget-visualization {
           background: transparent !important;
           color: #e2e8f0;
         }
       }
 
       .body-row-auto {
-        background: #141E40 !important;
+        background: #141e40 !important;
       }
 
       .t-header {
@@ -137,42 +132,49 @@ body {
 
         .query-link {
           color: #ffffff !important;
-          
+
           &:not(.visualization-name) {
             color: rgba(255, 255, 255, 0.8) !important;
           }
-          
+
           .visualization-name {
             color: #ffffff !important;
           }
-          
-          &:hover, &:focus {
+
+          &:hover,
+          &:focus {
             color: #ffffff !important;
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
           }
         }
-        
+
         .visualization-name:empty + span {
           color: rgba(255, 255, 255, 0.8) !important;
         }
       }
 
       .body-row-auto {
-        background-color: #141E40 !important;
+        background-color: #141e40 !important;
       }
 
       .tile__bottom-control {
         background: linear-gradient(180deg, rgba(20, 30, 64, 0.4), rgba(30, 25, 99, 0.4)) !important;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 0 0 12px 12px;
-        
-        a, .plain-button {
+
+        a,
+        .plain-button {
           color: rgba(255, 255, 255, 0.9) !important;
-          
-          &:hover, &:focus {
+
+          &:hover,
+          &:focus {
             color: #ffffff !important;
             text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
           }
+        }
+
+        span > span {
+          display: none !important;
         }
       }
     }
@@ -180,24 +182,26 @@ body {
 
   // Ant Design overrides for dark theme
   .ant-input {
-    background-color: #141E40 !important;
+    background-color: #141e40 !important;
     border: 1px solid rgba(30, 58, 138, 0.5) !important;
     color: #e2e8f0 !important;
     border-radius: 8px;
 
-    &:focus, &:hover {
+    &:focus,
+    &:hover {
       border-color: #60a5fa !important;
       box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2) !important;
     }
   }
 
   .ant-picker {
-    background-color: #141E40 !important;
+    background-color: #141e40 !important;
     border: 1px solid rgba(30, 58, 138, 0.5) !important;
     color: #e2e8f0 !important;
     border-radius: 8px;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       border-color: #60a5fa !important;
       box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2) !important;
     }
@@ -218,13 +222,13 @@ body {
 
   .ant-picker-dropdown {
     .ant-picker-panel-container {
-      background-color: #0E193C !important;
+      background-color: #0e193c !important;
       border: none !important;
       border-radius: 12px;
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
 
       .ant-picker-panel {
-        background-color: #0E193C !important;
+        background-color: #0e193c !important;
         border: none !important;
 
         .ant-picker-header {
@@ -235,7 +239,7 @@ body {
             border-radius: 6px;
 
             &:hover {
-              background-color: #141E40 !important;
+              background-color: #141e40 !important;
               color: #60a5fa !important;
             }
           }
@@ -243,14 +247,15 @@ body {
 
         .ant-picker-body {
           .ant-picker-content {
-            th, td {
+            th,
+            td {
               color: #e2e8f0 !important;
             }
 
             .ant-picker-cell {
               &:hover {
                 .ant-picker-cell-inner {
-                  background-color: #141E40 !important;
+                  background-color: #141e40 !important;
                   border-radius: 6px;
                 }
               }
@@ -258,7 +263,7 @@ body {
               &.ant-picker-cell-selected {
                 .ant-picker-cell-inner {
                   background-color: #60a5fa !important;
-                  color: #0E193C !important;
+                  color: #0e193c !important;
                   border-radius: 6px;
                 }
               }
@@ -278,7 +283,7 @@ body {
 
   .ant-select {
     .ant-select-selector {
-      background-color: #141E40 !important;
+      background-color: #141e40 !important;
       border: 1px solid rgba(30, 58, 138, 0.5) !important;
       color: #e2e8f0 !important;
       border-radius: 8px;
@@ -306,7 +311,7 @@ body {
 
     &.ant-select-multiple {
       .ant-select-selector {
-        background-color: #141E40 !important;
+        background-color: #141e40 !important;
         border: 1px solid rgba(30, 58, 138, 0.5) !important;
 
         .ant-select-selection-search {
@@ -317,7 +322,7 @@ body {
         }
 
         .ant-select-selection-item {
-          background-color: #0E193C !important;
+          background-color: #0e193c !important;
           border: none !important;
           color: #e2e8f0 !important;
           border-radius: 6px;
@@ -347,7 +352,7 @@ body {
   }
 
   .ant-select-dropdown {
-    background-color: #0E193C !important;
+    background-color: #0e193c !important;
     border: none !important;
     border-radius: 8px;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
@@ -357,14 +362,15 @@ body {
       border-radius: 4px;
       margin: 2px 4px;
 
-      &:hover, &.ant-select-item-option-selected {
-        background-color: #141E40 !important;
+      &:hover,
+      &.ant-select-item-option-selected {
+        background-color: #141e40 !important;
       }
     }
   }
 
   .ant-table {
-    background-color: #0E193C !important;
+    background-color: #0e193c !important;
     color: #e2e8f0 !important;
     border-radius: 12px;
     overflow: visible;
@@ -387,7 +393,7 @@ body {
     }
 
     .ant-table-thead > tr > th {
-      background-color: #141E40 !important;
+      background-color: #141e40 !important;
       color: #e2e8f0 !important;
       border-bottom: 1px solid rgba(30, 58, 138, 0.3) !important;
       border-right: none !important;
@@ -405,7 +411,7 @@ body {
     }
 
     .ant-table-tbody > tr > td {
-      background-color: #0E193C !important;
+      background-color: #0e193c !important;
       color: #e2e8f0 !important;
       border-bottom: 1px solid rgba(30, 58, 138, 0.2) !important;
       border-right: none !important;
@@ -414,7 +420,7 @@ body {
     }
 
     .ant-table-tbody > tr:hover > td {
-      background-color: #141E40 !important;
+      background-color: #141e40 !important;
     }
 
     .ant-table-tbody > tr:last-child > td {
@@ -441,7 +447,7 @@ body {
 
   .ant-pagination {
     .ant-pagination-item {
-      background-color: #141E40 !important;
+      background-color: #141e40 !important;
       border: 1px solid rgba(30, 58, 138, 0.5) !important;
       color: #e2e8f0 !important;
       border-radius: 6px;
@@ -450,18 +456,19 @@ body {
         color: #e2e8f0 !important;
       }
 
-      &:hover, &:focus {
-        background-color: #0E193C !important;
+      &:hover,
+      &:focus {
+        background-color: #0e193c !important;
         border-color: #60a5fa !important;
       }
 
       &.ant-pagination-item-active {
         background-color: #60a5fa !important;
         border-color: #60a5fa !important;
-        color: #0E193C !important;
+        color: #0e193c !important;
 
         a {
-          color: #0E193C !important;
+          color: #0e193c !important;
         }
       }
     }
@@ -469,13 +476,13 @@ body {
     .ant-pagination-prev,
     .ant-pagination-next {
       .ant-pagination-item-link {
-        background-color: #141E40 !important;
+        background-color: #141e40 !important;
         border: 1px solid rgba(30, 58, 138, 0.5) !important;
         color: #e2e8f0 !important;
         border-radius: 6px;
 
         &:hover {
-          background-color: #0E193C !important;
+          background-color: #0e193c !important;
           border-color: #60a5fa !important;
         }
       }
@@ -483,13 +490,14 @@ body {
   }
 
   .ant-btn {
-    background-color: #141E40 !important;
+    background-color: #141e40 !important;
     border: 1px solid rgba(30, 58, 138, 0.5) !important;
     color: #e2e8f0 !important;
     border-radius: 8px;
 
-    &:hover, &:focus {
-      background-color: #0E193C !important;
+    &:hover,
+    &:focus {
+      background-color: #0e193c !important;
       border-color: #60a5fa !important;
       color: #e2e8f0 !important;
     }
@@ -497,9 +505,10 @@ body {
     &.ant-btn-primary {
       background-color: #60a5fa !important;
       border-color: #60a5fa !important;
-      color: #0E193C !important;
+      color: #0e193c !important;
 
-      &:hover, &:focus {
+      &:hover,
+      &:focus {
         background-color: #93c5fd !important;
         border-color: #93c5fd !important;
       }
@@ -510,12 +519,13 @@ body {
     &.ant-dropdown-button {
       &.dynamic-button {
         .ant-btn {
-          background-color: #141E40 !important;
+          background-color: #141e40 !important;
           border-color: #1e3a8a !important;
           color: #e2e8f0 !important;
 
-          &:hover, &:focus {
-            background-color: #0E193C !important;
+          &:hover,
+          &:focus {
+            background-color: #0e193c !important;
             border-color: #60a5fa !important;
             color: #e2e8f0 !important;
           }
@@ -532,9 +542,10 @@ body {
           &.ant-btn-primary {
             background-color: #60a5fa !important;
             border-color: #60a5fa !important;
-            color: #0E193C !important;
+            color: #0e193c !important;
 
-            &:hover, &:focus {
+            &:hover,
+            &:focus {
               background-color: #93c5fd !important;
               border-color: #93c5fd !important;
             }
@@ -569,7 +580,7 @@ body {
   .ant-tooltip {
     .ant-tooltip-content {
       .ant-tooltip-inner {
-        background-color: #0E193C !important;
+        background-color: #0e193c !important;
         color: #e2e8f0 !important;
         border-radius: 8px;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
@@ -578,7 +589,7 @@ body {
   }
 
   .ant-dropdown-menu {
-    background-color: #0E193C !important;
+    background-color: #0e193c !important;
     border-radius: 8px;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
 
@@ -588,16 +599,16 @@ body {
       margin: 2px 4px;
 
       &:hover {
-        background-color: #141E40 !important;
+        background-color: #141e40 !important;
       }
 
       &.ant-dropdown-menu-item-selected {
         background-color: #60a5fa !important;
-        color: #0E193C !important;
+        color: #0e193c !important;
 
         &:hover {
           background-color: #93c5fd !important;
-          color: #0E193C !important;
+          color: #0e193c !important;
         }
       }
     }
@@ -616,7 +627,8 @@ body {
 
       // Grid lines styling - make them more subtle - multiple selectors for different plotly structures
       .gridlayer {
-        .xgrid, .ygrid {
+        .xgrid,
+        .ygrid {
           .gridlines {
             path {
               stroke: #64748b !important; // Lighter grey grid lines - more visible but still subtle
@@ -649,7 +661,8 @@ body {
 
       // Zero lines styling
       .zerolinelayer {
-        .xzerolayer, .yzerolayer {
+        .xzerolayer,
+        .yzerolayer {
           .zl {
             stroke: #4b5563 !important; // Slightly more visible zero lines
             stroke-width: 1px !important;
@@ -671,9 +684,8 @@ body {
 
       .annotation {
         .annotation-text {
-         
           color: #e2e8f0 !important;
-          fill: #e2e8f0 !important; 
+          fill: #e2e8f0 !important;
         }
       }
     }
@@ -690,10 +702,11 @@ body {
       }
     }
 
-    .xtick, .ytick {
+    .xtick,
+    .ytick {
       text {
-          color: #e2e8f0 !important;
-          fill: #e2e8f0 !important; 
+        color: #e2e8f0 !important;
+        fill: #e2e8f0 !important;
       }
     }
   }
