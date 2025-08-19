@@ -28,6 +28,9 @@ moment.updateLocale("en", {
     y: "a year ago",
     yy: "%d years ago",
   },
+  week: {
+    dow: 1, // Monday is the first day of the week
+  },
 });
 
 function requireImages() {
