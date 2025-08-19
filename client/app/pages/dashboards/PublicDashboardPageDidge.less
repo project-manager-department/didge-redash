@@ -173,8 +173,9 @@ body {
           }
         }
 
+        //  16 minutes ago footer
         span > span {
-          display: none !important;
+          // display: none !important;
         }
       }
     }
@@ -744,5 +745,31 @@ body {
   * {
     scrollbar-width: thin;
     scrollbar-color: #334155 #0f172a;
+  }
+
+  // Disable scaling on Counter visualization content
+  .counter-visualization-content {
+    > div {
+      transform: none !important;
+      transition: none !important; // prevent animated scaling
+      will-change: auto;
+    }
+
+    &:hover > div,
+    &:active > div,
+    &:focus-within > div {
+      transform: none !important;
+    }
+
+    // Smaller, responsive typography
+    .counter-visualization-value {
+      font-size: clamp(18px, 3.8vw, 32px) !important;
+      line-height: 1.15;
+    }
+
+    .counter-visualization-label {
+      font-size: clamp(11px, 1.6vw, 13px) !important;
+      line-height: 1.3;
+    }
   }
 }
