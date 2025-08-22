@@ -10,6 +10,319 @@ body {
   color: #e2e8f0;
 }
 
+// Global overrides for Ant DatePicker dropdowns rendered in document.body
+// Needed because the dropdown is not inside .public-dashboard-page
+.ant-picker-dropdown {
+  .ant-picker-panel-container {
+    background-color: #0e193c !important;
+    border: none !important;
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  }
+
+  .ant-picker-panel,
+  .ant-picker-date-panel,
+  .ant-picker-decade-panel,
+  .ant-picker-year-panel,
+  .ant-picker-quarter-panel,
+  .ant-picker-month-panel,
+  .ant-picker-week-panel {
+    background-color: #0e193c !important;
+    border: none !important;
+  color: #e2e8f0 !important;
+  }
+
+  .ant-picker-header {
+    border-bottom: 1px solid rgba(30, 58, 138, 0.3) !important;
+
+    button,
+    .ant-picker-header-view button {
+      color: #e2e8f0 !important;
+      border-radius: 6px;
+
+      &:hover {
+        background-color: #141e40 !important;
+        color: #60a5fa !important;
+      }
+    }
+  }
+
+  .ant-picker-body {
+    .ant-picker-content {
+      background: transparent !important;
+      table {
+        background: transparent !important;
+      }
+
+      th,
+      td {
+        color: #e2e8f0 !important;
+      }
+
+      .ant-picker-cell {
+        .ant-picker-cell-inner {
+          color: #e2e8f0 !important;
+          // Make cells feel clickable
+          cursor: default;
+        }
+
+        &.ant-picker-cell-disabled .ant-picker-cell-inner {
+          color: #64748b !important;
+        }
+
+        // Stronger hover for in-view, clickable dates
+        &.ant-picker-cell-in-view:not(.ant-picker-cell-disabled) .ant-picker-cell-inner {
+          cursor: pointer;
+        }
+        &.ant-picker-cell-in-view:not(.ant-picker-cell-disabled):hover .ant-picker-cell-inner {
+          background-color: #1e3a8a !important;
+          color: #e2e8f0 !important;
+          border-radius: 6px;
+        }
+
+        &:hover .ant-picker-cell-inner {
+          background-color: #141e40 !important;
+          border-radius: 6px;
+        }
+
+        &.ant-picker-cell-selected .ant-picker-cell-inner {
+          background-color: #60a5fa !important;
+          color: #0e193c !important;
+          border-radius: 6px;
+        }
+
+        &.ant-picker-cell-today .ant-picker-cell-inner {
+          border-color: #60a5fa !important;
+          border-radius: 6px;
+        }
+
+        // Range selection visuals
+        &.ant-picker-cell-in-range::before {
+          background: rgba(96, 165, 250, 0.15) !important;
+        }
+        &.ant-picker-cell-in-range .ant-picker-cell-inner {
+          background: rgba(96, 165, 250, 0.12) !important;
+          color: #e2e8f0 !important;
+        }
+        &.ant-picker-cell-range-start .ant-picker-cell-inner,
+        &.ant-picker-cell-range-end .ant-picker-cell-inner {
+          background: #60a5fa !important;
+          color: #0e193c !important;
+        }
+        &.ant-picker-cell-range-hover::after,
+        &.ant-picker-cell-range-hover-start::after,
+        &.ant-picker-cell-range-hover-end::after {
+          border-color: rgba(96, 165, 250, 0.45) !important;
+        }
+      }
+    }
+  }
+
+  .ant-picker-footer {
+    border-top: 1px solid rgba(30, 58, 138, 0.3) !important;
+    background: #0e193c !important;
+    border-radius: 0 0 12px 12px;
+
+    .ant-picker-ranges {
+      .ant-picker-preset > .ant-tag,
+      .ant-picker-preset > button,
+      .ant-picker-now-btn,
+      .ant-picker-today-btn {
+        background: transparent !important;
+        color: #e2e8f0 !important;
+        border-radius: 6px;
+
+        &:hover,
+        &:focus {
+          background: #1e3a8a !important;
+          color: #60a5fa !important;
+        }
+      }
+    }
+
+    .ant-picker-ok .ant-btn {
+      background-color: #60a5fa !important;
+      border-color: #60a5fa !important;
+      color: #0e193c !important;
+      border-radius: 6px;
+
+      &:hover,
+      &:focus {
+        background-color: #93c5fd !important;
+        border-color: #93c5fd !important;
+      }
+    }
+  }
+
+  .ant-picker-time-panel {
+    background: #0e193c !important;
+    border-left: 1px solid rgba(30, 58, 138, 0.3) !important;
+
+    .ant-picker-time-panel-column {
+      border-color: rgba(30, 58, 138, 0.3) !important;
+
+      .ant-picker-time-panel-cell-inner {
+        color: #e2e8f0 !important;
+        border-radius: 6px;
+
+        &:hover {
+          background: #1e3a8a !important;
+        }
+
+        &.ant-picker-time-panel-cell-inner-selected {
+          background: #60a5fa !important;
+          color: #0e193c !important;
+        }
+      }
+    }
+  }
+}
+
+// Global overrides for Ant Select dropdowns rendered in document.body
+.ant-select-dropdown {
+  background-color: #0e193c !important;
+  border: none !important;
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  color: #e2e8f0 !important;
+
+  // Virtual list wrappers
+  .rc-virtual-list,
+  .rc-virtual-list-holder,
+  .rc-virtual-list-holder-inner {
+    background: transparent !important;
+  }
+
+  // Option items
+  .ant-select-item {
+    color: #e2e8f0 !important;
+    border-radius: 4px;
+    margin: 2px 4px;
+
+    .ant-select-item-option-content {
+      color: #e2e8f0 !important;
+    }
+
+    &.ant-select-item-option-disabled {
+      color: #64748b !important;
+    }
+
+    // Hover/active
+    &:hover,
+    &.ant-select-item-option-active {
+      background-color: #141e40 !important;
+    }
+
+    // Selected
+    &.ant-select-item-option-selected {
+      background-color: #141e40 !important;
+      .ant-select-item-option-content {
+        color: #e2e8f0 !important;
+      }
+      .ant-select-item-option-state {
+        color: #60a5fa !important; // check icon
+      }
+    }
+  }
+
+  // Empty state text
+  .ant-empty-description {
+    color: #94a3b8 !important;
+  }
+}
+// Legacy Ant v3 calendar dropdown when appended to body
+.ant-calendar-picker-container {
+  background: transparent;
+  border: none;
+
+  .ant-calendar {
+    background-color: #0e193c !important;
+    border: none !important;
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+
+    .ant-calendar-table,
+    .ant-calendar-month-panel,
+    .ant-calendar-year-panel,
+    .ant-calendar-decade-panel {
+      background: transparent !important;
+      table { background: transparent !important; }
+    }
+
+    .ant-calendar-header {
+      border-bottom: 1px solid rgba(30, 58, 138, 0.3) !important;
+      color: #e2e8f0 !important;
+
+      a,
+      .ant-calendar-month-select,
+      .ant-calendar-year-select,
+      .ant-calendar-decade-select,
+      .ant-calendar-century-select {
+        color: #e2e8f0 !important;
+      }
+
+      .ant-calendar-prev-year-btn,
+      .ant-calendar-prev-month-btn,
+      .ant-calendar-next-month-btn,
+      .ant-calendar-next-year-btn {
+        color: #e2e8f0 !important;
+        border-radius: 6px;
+
+        &:hover {
+          background-color: #141e40 !important;
+          color: #60a5fa !important;
+        }
+      }
+    }
+
+    .ant-calendar-body {
+      table {
+        th,
+        td { color: #e2e8f0 !important; border-color: transparent !important; }
+      }
+
+  .ant-calendar-date { border-radius: 6px; cursor: default; }
+  .ant-calendar-date:hover { background: #1e3a8a !important; color: #e2e8f0 !important; }
+      .ant-calendar-today .ant-calendar-date { box-shadow: inset 0 0 0 1px #60a5fa !important; }
+      .ant-calendar-selected-day .ant-calendar-date,
+      .ant-calendar-selected-date .ant-calendar-date { background: #60a5fa !important; color: #0e193c !important; }
+      .ant-calendar-disabled-cell .ant-calendar-date,
+      .ant-calendar-last-month-cell .ant-calendar-date,
+      .ant-calendar-next-month-btn-day .ant-calendar-date { color: #64748b !important; }
+      .ant-calendar-in-range-cell::before { background: rgba(96, 165, 250, 0.15) !important; }
+      .ant-calendar-in-range-cell .ant-calendar-date { background: rgba(96, 165, 250, 0.12) !important; }
+    }
+
+    .ant-calendar-footer {
+      border-top: 1px solid rgba(30, 58, 138, 0.3) !important;
+      background: #0e193c !important;
+      color: #e2e8f0 !important;
+
+      .ant-calendar-time-picker-btn,
+      .ant-calendar-ok-btn,
+      .ant-calendar-today-btn,
+      .ant-calendar-clear-btn {
+        border-radius: 6px;
+        color: #e2e8f0 !important;
+
+        &:hover {
+          background: #141e40 !important;
+          color: #60a5fa !important;
+        }
+      }
+    }
+
+    .ant-calendar-time-picker {
+      border-left: 1px solid rgba(30, 58, 138, 0.3) !important;
+
+      .ant-calendar-time-picker-inner { background: #0e193c !important; }
+      .ant-calendar-time-picker-select ul { background: #0e193c !important; }
+      .ant-calendar-time-picker-select li { color: #e2e8f0 !important; }
+      .ant-calendar-time-picker-select li:hover { background: #141e40 !important; }
+      .ant-calendar-time-picker-select-option-selected { background: #60a5fa !important; color: #0e193c !important; }
+    }
+  }
+}
 .public-dashboard-page {
   width: 100%;
   background-color: #0f172a;
@@ -248,12 +561,29 @@ body {
 
         .ant-picker-body {
           .ant-picker-content {
+            // Prevent inherited table background (#fff) from global table styles
+            background: transparent !important;
+            table {
+              background-color: transparent !important;
+            }
             th,
             td {
               color: #e2e8f0 !important;
             }
 
             .ant-picker-cell {
+              &.ant-picker-cell-in-view {
+                .ant-picker-cell-inner {
+                  color: #e2e8f0 !important;
+                }
+              }
+
+              &.ant-picker-cell-disabled {
+                .ant-picker-cell-inner {
+                  color: #64748b !important;
+                }
+              }
+
               &:hover {
                 .ant-picker-cell-inner {
                   background-color: #141e40 !important;
@@ -273,6 +603,232 @@ body {
                 .ant-picker-cell-inner {
                   border-color: #60a5fa !important;
                   border-radius: 6px;
+                }
+              }
+            }
+          }
+        }
+
+        // Footer and preset ranges
+        .ant-picker-footer {
+          border-top: 1px solid rgba(30, 58, 138, 0.3) !important;
+          background: #0e193c !important;
+          border-radius: 0 0 12px 12px;
+
+          .ant-picker-ranges {
+            .ant-picker-preset > .ant-tag,
+            .ant-picker-preset > button,
+            .ant-picker-now-btn,
+            .ant-picker-today-btn {
+              background: transparent !important;
+              color: #e2e8f0 !important;
+              border-radius: 6px;
+
+              &:hover,
+              &:focus {
+                background: #141e40 !important;
+                color: #60a5fa !important;
+              }
+            }
+          }
+
+          .ant-picker-ok {
+            .ant-btn {
+              background-color: #60a5fa !important;
+              border-color: #60a5fa !important;
+              color: #0e193c !important;
+              border-radius: 6px;
+
+              &:hover,
+              &:focus {
+                background-color: #93c5fd !important;
+                border-color: #93c5fd !important;
+              }
+            }
+          }
+        }
+
+        // Time panel for datetime pickers
+        .ant-picker-time-panel {
+          background: #0e193c !important;
+          border-left: 1px solid rgba(30, 58, 138, 0.3) !important;
+
+          .ant-picker-time-panel-column {
+            border-color: rgba(30, 58, 138, 0.3) !important;
+
+            .ant-picker-time-panel-cell-inner {
+              color: #e2e8f0 !important;
+              border-radius: 6px;
+
+              &:hover {
+                background: #141e40 !important;
+              }
+
+              &.ant-picker-time-panel-cell-inner-selected {
+                background: #60a5fa !important;
+                color: #0e193c !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Ant Design v3 DatePicker dropdown (legacy) – force dark theme
+  // Redash may still use v3 classes like .ant-calendar-*
+  .ant-calendar-picker-container {
+    background: transparent;
+    border: none;
+
+    .ant-calendar {
+      background-color: #0e193c !important;
+      border: none !important;
+      border-radius: 12px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+
+      // Ensure calendar panels/tables don't inherit white backgrounds
+      .ant-calendar-table,
+      .ant-calendar-month-panel,
+      .ant-calendar-year-panel,
+      .ant-calendar-decade-panel {
+        background: transparent !important;
+        table {
+          background: transparent !important;
+        }
+      }
+
+      .ant-calendar-input-wrap,
+      .ant-calendar-range-part .ant-calendar-input-wrap {
+        background: #0e193c !important;
+        border-bottom: 1px solid rgba(30, 58, 138, 0.3) !important;
+
+        .ant-calendar-input {
+          background: #141e40 !important;
+          border: 1px solid rgba(30, 58, 138, 0.5) !important;
+          color: #e2e8f0 !important;
+          border-radius: 6px;
+
+          &::placeholder {
+            color: #94a3b8 !important;
+          }
+        }
+      }
+
+      .ant-calendar-header {
+        border-bottom: 1px solid rgba(30, 58, 138, 0.3) !important;
+        color: #e2e8f0 !important;
+
+        a,
+        .ant-calendar-month-select,
+        .ant-calendar-year-select,
+        .ant-calendar-decade-select,
+        .ant-calendar-century-select {
+          color: #e2e8f0 !important;
+        }
+
+        .ant-calendar-prev-year-btn,
+        .ant-calendar-prev-month-btn,
+        .ant-calendar-next-month-btn,
+        .ant-calendar-next-year-btn {
+          color: #e2e8f0 !important;
+          border-radius: 6px;
+
+          &:hover {
+            background-color: #141e40 !important;
+            color: #60a5fa !important;
+          }
+        }
+      }
+
+      .ant-calendar-body {
+        table {
+          th,
+          td {
+            color: #e2e8f0 !important;
+            border-color: transparent !important;
+          }
+
+          .ant-calendar-cell,
+          .ant-calendar-date {
+            color: #e2e8f0 !important;
+          }
+
+          .ant-calendar-date {
+            border-radius: 6px;
+
+            &:hover {
+              background: #141e40 !important;
+            }
+          }
+
+          .ant-calendar-today .ant-calendar-date {
+            box-shadow: inset 0 0 0 1px #60a5fa !important;
+          }
+
+          .ant-calendar-selected-day .ant-calendar-date,
+          .ant-calendar-selected-date .ant-calendar-date {
+            background: #60a5fa !important;
+            color: #0e193c !important;
+          }
+
+          .ant-calendar-disabled-cell .ant-calendar-date,
+          .ant-calendar-last-month-cell .ant-calendar-date,
+          .ant-calendar-next-month-btn-day .ant-calendar-date {
+            color: #64748b !important;
+          }
+
+          // Range hover/selected states
+          .ant-calendar-in-range-cell::before {
+            background: rgba(96, 165, 250, 0.15) !important;
+          }
+
+          .ant-calendar-in-range-cell .ant-calendar-date {
+            background: rgba(96, 165, 250, 0.12) !important;
+          }
+        }
+      }
+
+      .ant-calendar-footer {
+        border-top: 1px solid rgba(30, 58, 138, 0.3) !important;
+        background: #0e193c !important;
+        color: #e2e8f0 !important;
+
+        .ant-calendar-time-picker-btn,
+        .ant-calendar-ok-btn,
+        .ant-calendar-today-btn,
+        .ant-calendar-clear-btn {
+          border-radius: 6px;
+          color: #e2e8f0 !important;
+
+          &:hover {
+            background: #141e40 !important;
+            color: #60a5fa !important;
+          }
+        }
+      }
+
+      // Time panel inside range picker
+      .ant-calendar-time-picker {
+        border-left: 1px solid rgba(30, 58, 138, 0.3) !important;
+
+        .ant-calendar-time-picker-inner {
+          background: #0e193c !important;
+
+          .ant-calendar-time-picker-select {
+            ul {
+              background: #0e193c !important;
+
+              li {
+                color: #e2e8f0 !important;
+
+                &:hover {
+                  background: #141e40 !important;
+                }
+
+                &.ant-calendar-time-picker-select-option-selected {
+                  background: #60a5fa !important;
+                  color: #0e193c !important;
                 }
               }
             }
