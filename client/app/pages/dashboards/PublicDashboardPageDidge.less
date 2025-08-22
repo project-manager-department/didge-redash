@@ -66,8 +66,34 @@ body {
           cursor: default;
         }
 
+            // Remove default light grey overlay on disabled cells
+            &.ant-picker-cell-disabled::before {
+        // Range-hover states: ensure inner uses dark-friendly colors
+        &.ant-picker-cell-range-hover .ant-picker-cell-inner {
+          background: #141e40 !important;
+          // color: #e2e8f0 !important;
+                    color: #e78238 !important;
+        }
+        // In-range + hover-start/end: deepen tint
+        &.ant-picker-cell-in-range.ant-picker-cell-range-hover-start .ant-picker-cell-inner,
+        &.ant-picker-cell-in-range.ant-picker-cell-range-hover-end .ant-picker-cell-inner {
+          background: rgba(96, 165, 250, 0.22) !important;
+                    color: #e78238 !important;
+        }
+              background: transparent !important;
+            }
+
         &.ant-picker-cell-disabled .ant-picker-cell-inner {
           color: #64748b !important;
+          cursor: not-allowed !important;
+        }
+
+        // Out-of-view (prev/next month) cells
+        &:not(.ant-picker-cell-in-view) .ant-picker-cell-inner {
+          color: #64748b !important;
+        }
+        &:not(.ant-picker-cell-in-view):hover .ant-picker-cell-inner {
+          background: transparent !important;
         }
 
         // Stronger hover for in-view, clickable dates
@@ -104,10 +130,74 @@ body {
           background: rgba(96, 165, 250, 0.12) !important;
           color: #e2e8f0 !important;
         }
+        // Hover in-range: slightly stronger tint, keep readable text
+        &.ant-picker-cell-in-range:hover .ant-picker-cell-inner {
+          background: rgba(96, 165, 250, 0.22) !important;
+          color: #e2e8f0 !important;
+        }
+            // Disabled cells inside ranges should use a very subtle tint
+            &.ant-picker-cell-disabled.ant-picker-cell-in-range::before {
+              background: rgba(96, 165, 250, 0.08) !important;
+            }
+        // Ensure start/end half backgrounds (pseudo elements) use dark theme tone
+        &.ant-picker-cell-range-start:not(.ant-picker-cell-range-start-single)::before,
+        &.ant-picker-cell-range-end:not(.ant-picker-cell-range-end-single)::before {
+          background: rgba(96, 165, 250, 0.15) !important;
+        }
         &.ant-picker-cell-range-start .ant-picker-cell-inner,
         &.ant-picker-cell-range-end .ant-picker-cell-inner {
           background: #60a5fa !important;
           color: #0e193c !important;
+          // soften edge when connecting to range
+          box-shadow: none !important;
+        }
+        &.ant-picker-cell-range-start .ant-picker-cell-inner {
+          border-radius: 6px 0 0 6px;
+        }
+        &.ant-picker-cell-range-end .ant-picker-cell-inner {
+          border-radius: 0 6px 6px 0;
+        }
+        &.ant-picker-cell-range-start-single .ant-picker-cell-inner {
+          background: #60a5fa !important;
+          color: #0e193c !important;
+          border-radius: 6px;
+        }
+        // Keep selected endpoints consistent on hover (avoid white/grey overlay)
+        &.ant-picker-cell-selected:hover .ant-picker-cell-inner,
+        &.ant-picker-cell-range-start:hover .ant-picker-cell-inner,
+        &.ant-picker-cell-range-end:hover .ant-picker-cell-inner,
+        &.ant-picker-cell-range-hover-start.ant-picker-cell-selected .ant-picker-cell-inner,
+        &.ant-picker-cell-range-hover-end.ant-picker-cell-selected .ant-picker-cell-inner {
+          background: #60a5fa !important;
+          color: #0e193c !important;
+        }
+        // When range-hover class is on the actual start/end cells, keep the blue
+        &.ant-picker-cell-range-hover-start.ant-picker-cell-range-start .ant-picker-cell-inner,
+        &.ant-picker-cell-range-hover-end.ant-picker-cell-range-end .ant-picker-cell-inner {
+          background: #60a5fa !important;
+          color: #0e193c !important;
+        }
+        &.ant-picker-cell-disabled.ant-picker-cell-in-range::before {
+          background: rgba(96, 165, 250, 0.08) !important;
+        }
+        &.ant-picker-cell-disabled.ant-picker-cell-range-start::before,
+        &.ant-picker-cell-disabled.ant-picker-cell-range-end::before {
+          background: rgba(96, 165, 250, 0.08) !important;
+        }
+        &.ant-picker-cell-disabled.ant-picker-cell-range-start .ant-picker-cell-inner,
+        &.ant-picker-cell-disabled.ant-picker-cell-range-end .ant-picker-cell-inner {
+          background: rgba(96, 165, 250, 0.25) !important;
+          color: #94a3b8 !important;
+        }
+        // Disabled + in-range + hover: keep subtle and legible
+        &.ant-picker-cell-disabled.ant-picker-cell-in-range:hover .ant-picker-cell-inner {
+          background: rgba(96, 165, 250, 0.10) !important;
+          color: #94a3b8 !important;
+        }
+        // Hover connectors for start/end when previewing range
+        &.ant-picker-cell-range-hover-start::before,
+        &.ant-picker-cell-range-hover-end::before {
+          background: rgba(96, 165, 250, 0.15) !important;
         }
         &.ant-picker-cell-range-hover::after,
         &.ant-picker-cell-range-hover-start::after,
@@ -286,9 +376,11 @@ body {
       .ant-calendar-today .ant-calendar-date { box-shadow: inset 0 0 0 1px #60a5fa !important; }
       .ant-calendar-selected-day .ant-calendar-date,
       .ant-calendar-selected-date .ant-calendar-date { background: #60a5fa !important; color: #0e193c !important; }
-      .ant-calendar-disabled-cell .ant-calendar-date,
+  .ant-calendar-disabled-cell .ant-calendar-date,
       .ant-calendar-last-month-cell .ant-calendar-date,
       .ant-calendar-next-month-btn-day .ant-calendar-date { color: #64748b !important; }
+  .ant-calendar-disabled-cell .ant-calendar-date { cursor: not-allowed !important; }
+  .ant-calendar-disabled-cell .ant-calendar-date:hover { background: transparent !important; }
       .ant-calendar-in-range-cell::before { background: rgba(96, 165, 250, 0.15) !important; }
       .ant-calendar-in-range-cell .ant-calendar-date { background: rgba(96, 165, 250, 0.12) !important; }
     }
@@ -572,6 +664,55 @@ body {
             }
 
             .ant-picker-cell {
+              // Remove default light grey overlay on disabled cells
+              &.ant-picker-cell-disabled::before {
+                background: transparent !important;
+              }
+              // Disabled cells inside ranges should use a very subtle tint
+              &.ant-picker-cell-disabled.ant-picker-cell-in-range::before {
+                background: rgba(96, 165, 250, 0.08) !important;
+              }
+              // Darken the half-cell backgrounds for range edges
+              &.ant-picker-cell-in-range::before {
+                background: rgba(96, 165, 250, 0.15) !important;
+              }
+              &.ant-picker-cell-range-start:not(.ant-picker-cell-range-start-single)::before,
+              &.ant-picker-cell-range-end:not(.ant-picker-cell-range-end-single)::before {
+                background: rgba(96, 165, 250, 0.15) !important;
+              }
+              &.ant-picker-cell-range-hover-start::before,
+              &.ant-picker-cell-range-hover-end::before {
+                background: rgba(96, 165, 250, 0.15) !important;
+              }
+              // Hover in-range: slightly stronger tint, keep readable text
+              &.ant-picker-cell-in-range:hover .ant-picker-cell-inner {
+                background: rgba(96, 165, 250, 0.22) !important;
+                color: #e2e8f0 !important;
+              }
+              // Fix light overlay from Ant's ::after during range-hover on inner element
+              &.ant-picker-cell-range-hover-start .ant-picker-cell-inner::after,
+              &.ant-picker-cell-range-hover-end .ant-picker-cell-inner::after,
+              &.ant-picker-cell-in-range.ant-picker-cell-range-hover-start .ant-picker-cell-inner::after,
+              &.ant-picker-cell-in-range.ant-picker-cell-range-hover-end .ant-picker-cell-inner::after {
+                background: rgba(96, 165, 250, 0.22) !important;
+              }
+              // Ensure endpoints stay blue even when hover classes are present
+              &.ant-picker-cell-range-hover-start.ant-picker-cell-range-start .ant-picker-cell-inner::after,
+              &.ant-picker-cell-range-hover-end.ant-picker-cell-range-end .ant-picker-cell-inner::after {
+                background: #60a5fa !important;
+              }
+              // Range-hover states: ensure inner uses dark-friendly colors
+              &.ant-picker-cell-range-hover .ant-picker-cell-inner {
+                background: #141e40 !important;
+                color: #e2e8f0 !important;
+              }
+              // In-range + hover-start/end: deepen tint
+              &.ant-picker-cell-in-range.ant-picker-cell-range-hover-start .ant-picker-cell-inner,
+              &.ant-picker-cell-in-range.ant-picker-cell-range-hover-end .ant-picker-cell-inner {
+                background: rgba(96, 165, 250, 0.22) !important;
+                color: #e2e8f0 !important;
+              }
+
               &.ant-picker-cell-in-view {
                 .ant-picker-cell-inner {
                   color: #e2e8f0 !important;
@@ -597,6 +738,22 @@ body {
                   color: #0e193c !important;
                   border-radius: 6px;
                 }
+              }
+
+              // Keep selected endpoints consistent on hover (avoid white/grey overlay)
+              &.ant-picker-cell-selected:hover .ant-picker-cell-inner,
+              &.ant-picker-cell-range-start:hover .ant-picker-cell-inner,
+              &.ant-picker-cell-range-end:hover .ant-picker-cell-inner,
+              &.ant-picker-cell-range-hover-start.ant-picker-cell-selected .ant-picker-cell-inner,
+              &.ant-picker-cell-range-hover-end.ant-picker-cell-selected .ant-picker-cell-inner {
+                background: #60a5fa !important;
+                color: #0e193c !important;
+              }
+              // When range-hover class is on the actual start/end cells, keep the blue
+              &.ant-picker-cell-range-hover-start.ant-picker-cell-range-start .ant-picker-cell-inner,
+              &.ant-picker-cell-range-hover-end.ant-picker-cell-range-end .ant-picker-cell-inner {
+                background: #60a5fa !important;
+                color: #0e193c !important;
               }
 
               &.ant-picker-cell-today {
@@ -1250,6 +1407,18 @@ body {
       .annotation {
         .annotation-text {
           color: #e2e8f0 !important;
+        // Fix light overlay from Ant's ::after during range-hover on inner element
+        &.ant-picker-cell-range-hover-start .ant-picker-cell-inner::after,
+        &.ant-picker-cell-range-hover-end .ant-picker-cell-inner::after,
+        &.ant-picker-cell-in-range.ant-picker-cell-range-hover-start .ant-picker-cell-inner::after,
+        &.ant-picker-cell-in-range.ant-picker-cell-range-hover-end .ant-picker-cell-inner::after {
+          background: rgba(96, 165, 250, 0.22) !important;
+        }
+        // Ensure endpoints stay blue even when hover classes are present
+        &.ant-picker-cell-range-hover-start.ant-picker-cell-range-start .ant-picker-cell-inner::after,
+        &.ant-picker-cell-range-hover-end.ant-picker-cell-range-end .ant-picker-cell-inner::after {
+          background: #60a5fa !important;
+        }
           fill: #e2e8f0 !important;
         }
       }
