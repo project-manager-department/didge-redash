@@ -534,9 +534,15 @@ body {
         color: #ffffff;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 12px 12px 0 0;
+        padding: 10px 13px;
 
         .query-link {
           color: #ffffff !important;
+          font-size: clamp(1rem, 1.5vw, 1.25rem);
+          max-width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
 
           &:not(.visualization-name) {
             color: rgba(255, 255, 255, 0.8) !important;
@@ -566,6 +572,7 @@ body {
         background: linear-gradient(180deg, rgba(20, 30, 64, 0.4), rgba(30, 25, 99, 0.4)) !important;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 0 0 12px 12px;
+        padding: 7px 10px;
 
         a,
         .plain-button {
