@@ -1165,6 +1165,11 @@ body {
       border-right: none !important;
       border-left: none !important;
       border-top: none !important;
+
+      &[style*="text-align: right"],
+      &.ant-table-cell[style*="text-align: right"] {
+        padding-right: 28px;
+      }
     }
 
     .ant-table-tbody > tr:hover > td {
