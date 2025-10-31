@@ -1441,18 +1441,43 @@ body {
       .annotation {
         .annotation-text {
           color: #e2e8f0 !important;
-        // Fix light overlay from Ant's ::after during range-hover on inner element
-        &.ant-picker-cell-range-hover-start .ant-picker-cell-inner::after,
-        &.ant-picker-cell-range-hover-end .ant-picker-cell-inner::after,
-        &.ant-picker-cell-in-range.ant-picker-cell-range-hover-start .ant-picker-cell-inner::after,
-        &.ant-picker-cell-in-range.ant-picker-cell-range-hover-end .ant-picker-cell-inner::after {
-          background: rgba(96, 165, 250, 0.22) !important;
+          fill: #e2e8f0 !important;
         }
-        // Ensure endpoints stay blue even when hover classes are present
-        &.ant-picker-cell-range-hover-start.ant-picker-cell-range-start .ant-picker-cell-inner::after,
-        &.ant-picker-cell-range-hover-end.ant-picker-cell-range-end .ant-picker-cell-inner::after {
-          background: #60a5fa !important;
+      }
+
+      // Axis labels and titles styling
+      .xtitle,
+      .ytitle {
+        text {
+          color: #e2e8f0 !important;
+          fill: #e2e8f0 !important;
         }
+      }
+
+      // Axis tick labels styling
+      .xaxis,
+      .yaxis {
+        .xtick,
+        .ytick {
+          text {
+            color: #e2e8f0 !important;
+            fill: #e2e8f0 !important;
+          }
+        }
+      }
+
+      // Title and subtitle styling
+      .gtitle {
+        text {
+          color: #ffffff !important;
+          fill: #ffffff !important;
+        }
+      }
+
+      // Data labels and annotations
+      .textlayer {
+        text {
+          color: #e2e8f0 !important;
           fill: #e2e8f0 !important;
         }
       }
@@ -1470,8 +1495,29 @@ body {
       }
     }
 
+    // Global text styling for all Plotly text elements
     .xtick,
     .ytick {
+      text {
+        color: #e2e8f0 !important;
+        fill: #e2e8f0 !important;
+      }
+    }
+
+    // Additional text elements that might not be caught above
+    text {
+      color: #e2e8f0 !important;
+      fill: #e2e8f0 !important;
+    }
+
+    // Hover info and tooltips
+    .hovertext {
+      color: #e2e8f0 !important;
+      fill: #e2e8f0 !important;
+    }
+
+    // Colorbar text
+    .colorbar {
       text {
         color: #e2e8f0 !important;
         fill: #e2e8f0 !important;
