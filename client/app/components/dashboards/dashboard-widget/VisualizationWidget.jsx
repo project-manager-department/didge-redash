@@ -297,6 +297,7 @@ class VisualizationWidget extends React.Component {
               filters={filters}
               onFiltersChange={this.onLocalFiltersChange}
               context="widget"
+              queryName={widget.getQuery().name}
             />
           </div>
         );

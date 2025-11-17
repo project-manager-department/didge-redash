@@ -108,7 +108,7 @@ function prepareBoxLayout(layout: any, options: any, data: any) {
   return layout;
 }
 
-export default function prepareLayout(element: any, options: any, data: any) {
+export default function prepareLayout(element: any, options: any, data: any, additionalOptions?: any) {
   const layout: any = {
     margin: { l: 10, r: 10, b: 5, t: 20, pad: 4 },
     // plot size should be at least 5x5px
@@ -123,6 +123,10 @@ export default function prepareLayout(element: any, options: any, data: any) {
       namelength: -1,
     },
   };
+
+  if (additionalOptions?.visualizationName) {
+    layout.title = { text: additionalOptions.visualizationName, visible: false };
+  }
 
   if (["line", "area", "column"].includes(options.globalSeriesType)) {
     layout.hovermode = options.swappedAxes ? 'y' : 'x';

@@ -10,8 +10,16 @@ import { prepareCustomChartData, createCustomChartRenderer } from "./customChart
 
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'setPlotConfig' does not exist on type 't... Remove this comment to see the full error message
 Plotly.setPlotConfig({
-  modeBarButtonsToRemove: ["sendDataToCloud"],
-  modeBarButtonsToAdd: ["togglespikelines", "v1hovermode"],
+  modeBarButtonsToRemove: ["sendDataToCloud", "toImage"],
+  modeBarButtonsToAdd: ["togglespikelines", "v1hovermode", {
+    name: 'download-png',
+    title: 'Download plot as PNG',
+    icon: Plotly.Icons.camera,
+    click: (gd: any) => {
+      const filename = gd.dataset.queryName || gd.dataset.visualizationName || 'chart';
+      Plotly.downloadImage(gd, { format: 'png', filename, width: gd._fullLayout.width, height: gd._fullLayout.height });
+    }
+  }],
   locale: window.navigator.language,
 });
 

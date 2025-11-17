@@ -3,7 +3,7 @@ import React, { useState, useMemo, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import useQueryResultData from "@/lib/useQueryResultData";
 import useImmutableCallback from "@/lib/hooks/useImmutableCallback";
-import Filters, { FiltersType, filterData } from "@/components/Filters";
+import { FiltersType, filterData } from "@/components/Filters";
 import { VisualizationType } from "@redash/viz/lib";
 import { Renderer } from "@/components/visualizations/visualizationComponents";
 
@@ -69,7 +69,7 @@ export default function VisualizationRenderer(props) {
     [data, filters]
   );
 
-  const { showFilters, visualization } = props;
+  const { visualization } = props;
 
   let options = { ...visualization.options };
 
@@ -78,6 +78,8 @@ export default function VisualizationRenderer(props) {
     options.paginationSize = props.context === "widget" ? "small" : "default";
   }
 
+  options.queryName = props.queryName;
+
   return (
     <Renderer
       key={`visualization${visualization.id}`}
@@ -85,7 +87,6 @@ export default function VisualizationRenderer(props) {
       options={options}
       data={filteredData}
       visualizationName={visualization.name}
-      addonBefore={showFilters && <Filters filters={filters} onChange={handleFiltersChange} />}
     />
   );
 }
@@ -93,14 +94,14 @@ export default function VisualizationRenderer(props) {
 VisualizationRenderer.propTypes = {
   visualization: VisualizationType.isRequired,
   queryResult: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  showFilters: PropTypes.bool,
   filters: FiltersType,
   onFiltersChange: PropTypes.func,
   context: PropTypes.oneOf(["query", "widget"]).isRequired,
+  queryName: PropTypes.string,
 };
 
 VisualizationRenderer.defaultProps = {
-  showFilters: true,
   filters: [],
   onFiltersChange: () => {},
+  queryName: null,
 };
