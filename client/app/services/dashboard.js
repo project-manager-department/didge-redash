@@ -9,20 +9,28 @@ import { policy } from "@/services/policy";
 export const urlForDashboard = ({ id, slug }) => `dashboards/${id}-${slug}`;
 
 export function collectDashboardFilters(dashboard, queryResults, urlParams) {
+  
   const filters = {};
-  _.each(queryResults, queryResult => {
+  _.each(queryResults, (queryResult) => {
     const queryFilters = queryResult && queryResult.getFilters ? queryResult.getFilters() : [];
+    
     _.each(queryFilters, queryFilter => {
-      const hasQueryStringValue = _.has(urlParams, queryFilter.name);
+      // Check for both prefixed (p_filterName) and non-prefixed (filterName) parameter names
+      const hasQueryStringValue = _.has(urlParams, queryFilter.name) || _.has(urlParams, `p_${queryFilter.name}`);
+
+      // debug check removed
 
       if (!(hasQueryStringValue || dashboard.dashboard_filters_enabled)) {
         // If dashboard filters not enabled, or no query string value given,
         // skip filters linking.
+        // skipping
         return;
       }
 
       if (hasQueryStringValue) {
-        queryFilter.current = urlParams[queryFilter.name];
+        // Use prefixed version if available, otherwise use non-prefixed
+        queryFilter.current = urlParams[`p_${queryFilter.name}`] || urlParams[queryFilter.name];
+        // setting current value
       }
 
       const filter = { ...queryFilter };

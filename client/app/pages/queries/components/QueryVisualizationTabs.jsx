@@ -149,7 +149,7 @@ export default function QueryVisualizationTabs({
             />
           }
         >
-          {queryResult ? (
+            {queryResult ? (
             <VisualizationRenderer
               visualization={visualization}
               queryResult={queryResult}
@@ -157,6 +157,7 @@ export default function QueryVisualizationTabs({
               filters={filters}
               onFiltersChange={setFilters}
               queryName={query.name}
+                queryParams={query.getParameters().getExecutionValues()}
             />
           ) : (
             <EmptyState

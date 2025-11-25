@@ -23,6 +23,7 @@ function ExpandedWidgetDialog({ dialog, widget, filters }) {
         queryResult={widget.getQueryResult()}
         filters={filters}
         context="widget"
+         queryParams={widget.getQuery().getParameters().getExecutionValues()}
         queryName={widget.getQuery().name}
       />
     </Modal>

@@ -38,6 +38,11 @@ export default function PlotlyChart({ options, data, visualizationName }: Plotly
         // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
         errorHandlerRef.current.handleError(error);
       }, (options as any).queryName || visualizationName);
+      // ensure dataset.queryName is aligned as well
+      if (container) {
+        const filename = (options as any).queryName || visualizationName;
+        (container as any).dataset.queryName = filename;
+      }
       _chart.initialized.then(() => {
         if (!isDestroyed) {
           setChart(_chart);

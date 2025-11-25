@@ -18,7 +18,9 @@ export default function CustomPlotlyChart({ options, data, visualizationName }: 
 
   useEffect(() => {
     if (container) {
-      (container as any).dataset.visualizationName = (options as any).queryName || visualizationName;
+      const filename = (options as any).queryName || visualizationName;
+      (container as any).dataset.visualizationName = filename;
+      (container as any).dataset.queryName = filename;
       const unwatch = resizeObserver(container, () => {
         // Clear existing data with blank data for succeeding codeCall adds data to existing plot.
         // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'null' is not assignable to param... Remove this comment to see the full error message
