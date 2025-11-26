@@ -386,6 +386,7 @@ function QuerySource(props) {
                       onChangeTab={setSelectedVisualization}
                       onAddVisualization={addVisualization}
                       onDeleteVisualization={deleteVisualization}
+                      query={query}
                       refreshButton={
                         <Button
                           type="primary"

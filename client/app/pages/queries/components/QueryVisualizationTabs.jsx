@@ -93,6 +93,7 @@ export default function QueryVisualizationTabs({
   onDeleteVisualization,
   refreshButton,
   canRefresh,
+  query,
   ...props
 }) {
   const visualizations = useMemo(
@@ -155,6 +156,8 @@ export default function QueryVisualizationTabs({
               context="query"
               filters={filters}
               onFiltersChange={setFilters}
+              queryName={query.name}
+              queryParams={query.getParameters().getExecutionValues()}
             />
           ) : (
             <EmptyState
@@ -184,6 +187,7 @@ QueryVisualizationTabs.propTypes = {
   onDeleteVisualization: PropTypes.func,
   refreshButton: PropTypes.node,
   canRefresh: PropTypes.bool,
+  query: PropTypes.object,
 };
 
 QueryVisualizationTabs.defaultProps = {

@@ -12,9 +12,10 @@ export interface PlotlyChartProps {
     columns: any[];
   };
   options: object;
+  visualizationName?: string;
 }
 
-export default function PlotlyChart({ options, data }: PlotlyChartProps) {
+export default function PlotlyChart({ options, data, visualizationName }: PlotlyChartProps) {
   const [container, setContainer] = useState(null);
   const [chart, setChart] = useState(null);
 
@@ -36,12 +37,20 @@ export default function PlotlyChart({ options, data }: PlotlyChartProps) {
       const _chart = initChart(container, options, chartData, visualizationsSettings, (error: any) => {
         // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
         errorHandlerRef.current.handleError(error);
-      });
+      }, (options as any).queryName || visualizationName);
+      
+      // ensure dataset.queryName is aligned as well
+      if (container) {
+        const filename = (options as any).queryName || visualizationName;
+        (container as any).dataset.queryName = filename;
+      }
+
       _chart.initialized.then(() => {
         if (!isDestroyed) {
           setChart(_chart);
         }
       });
+      
       return () => {
         isDestroyed = true;
         _chart.destroy();

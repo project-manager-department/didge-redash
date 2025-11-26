@@ -13,7 +13,8 @@ export function collectDashboardFilters(dashboard, queryResults, urlParams) {
   _.each(queryResults, queryResult => {
     const queryFilters = queryResult && queryResult.getFilters ? queryResult.getFilters() : [];
     _.each(queryFilters, queryFilter => {
-      const hasQueryStringValue = _.has(urlParams, queryFilter.name);
+      const hasQueryStringValue = _.has(urlParams, queryFilter.name) || _.has(urlParams, `p_${queryFilter.name}`);
+
 
       if (!(hasQueryStringValue || dashboard.dashboard_filters_enabled)) {
         // If dashboard filters not enabled, or no query string value given,
@@ -22,7 +23,8 @@ export function collectDashboardFilters(dashboard, queryResults, urlParams) {
       }
 
       if (hasQueryStringValue) {
-        queryFilter.current = urlParams[queryFilter.name];
+        // Use prefixed version if available, otherwise use non-prefixed
+        queryFilter.current = urlParams[`p_${queryFilter.name}`] || urlParams[queryFilter.name];
       }
 
       const filter = { ...queryFilter };

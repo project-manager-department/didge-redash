@@ -55,7 +55,7 @@ function initPlotUpdater() {
   return updater;
 }
 
-export default function initChart(container: any, options: any, data: any, additionalOptions: any, onError: any) {
+export default function initChart(container: any, options: any, data: any, additionalOptions: any, onError: any, filename?: string) {
   const handleError = createErrorHandler(onError);
 
   const plotlyOptions = {
@@ -69,7 +69,7 @@ export default function initChart(container: any, options: any, data: any, addit
   }
 
   const plotlyData = prepareData(data, options);
-  const plotlyLayout = prepareLayout(container, options, plotlyData);
+  const plotlyLayout = prepareLayout(container, options, plotlyData, additionalOptions);
 
   let isDestroyed = false;
 
@@ -91,7 +91,12 @@ export default function initChart(container: any, options: any, data: any, addit
   let unwatchResize = () => {};
 
   const promise = Promise.resolve()
-    .then(() => Plotly.newPlot(container, plotlyData, plotlyLayout, plotlyOptions))
+     .then(() => {
+        Plotly.newPlot(container, plotlyData, plotlyLayout, plotlyOptions);
+        if (filename) {
+          container.dataset.visualizationName = filename;
+        }
+      })
     .then(
       createSafeFunction(() =>
         updater
