@@ -6,7 +6,7 @@ import resizeObserver from "@/services/resizeObserver";
 import getChartData from "../getChartData";
 import { Plotly, prepareCustomChartData, createCustomChartRenderer } from "../plotly";
 
-export default function CustomPlotlyChart({ options, data }: any) {
+export default function CustomPlotlyChart({ options, data, visualizationName }: any) {
   const [container, setContainer] = useState(null);
 
   const renderCustomChart = useMemo(() => createCustomChartRenderer(options.customCode, options.enableConsoleLogs), [
@@ -18,6 +18,10 @@ export default function CustomPlotlyChart({ options, data }: any) {
 
   useEffect(() => {
     if (container) {
+      const filename = (options as any).queryName || visualizationName;
+      (container as any).dataset.visualizationName = filename;
+      (container as any).dataset.queryName = filename;
+
       const unwatch = resizeObserver(container, () => {
         // Clear existing data with blank data for succeeding codeCall adds data to existing plot.
         // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'null' is not assignable to param... Remove this comment to see the full error message

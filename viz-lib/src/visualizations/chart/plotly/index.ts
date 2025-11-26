@@ -15,7 +15,7 @@ const rangeSliderIcon = {
 };
 
 Plotly.setPlotConfig({
-  modeBarButtonsToRemove: ["sendDataToCloud"],
+  modeBarButtonsToRemove: ["sendDataToCloud", "toImage"],
   modeBarButtonsToAdd: ["togglespikelines", "v1hovermode",
     {
       name: 'toggleRangeslider',
@@ -31,6 +31,16 @@ Plotly.setPlotConfig({
         }
       }
     },
+    // Enhanced PNG download with smart filename - DIDGE CUSTOM ADDITION
+    { 
+      name: 'download-png',
+      title: 'Download plot as PNG',
+      icon: Plotly.Icons.camera,
+      click: (gd: any) => {
+        const filename = gd.dataset.queryName || gd.dataset.visualizationName || 'chart';
+        Plotly.downloadImage(gd, { format: 'png', filename, width: gd._fullLayout.width, height: gd._fullLayout.height });
+      }
+    }
   ],
   locale: window.navigator.language,
 });

@@ -3,7 +3,8 @@ import React, { useState, useMemo, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import useQueryResultData from "@/lib/useQueryResultData";
 import useImmutableCallback from "@/lib/hooks/useImmutableCallback";
-import Filters, { FiltersType, filterData } from "@/components/Filters";
+import { generateVisualizationFilename } from "@/lib/visualizationFilename";
+import { FiltersType, filterData } from "@/components/Filters";
 import { VisualizationType } from "@redash/viz/lib";
 import { Renderer } from "@/components/visualizations/visualizationComponents";
 
@@ -69,7 +70,7 @@ export default function VisualizationRenderer(props) {
     [data, filters]
   );
 
-  const { showFilters, visualization } = props;
+  const { visualization, queryParams } = props;
 
   let options = { ...visualization.options };
 
@@ -78,6 +79,20 @@ export default function VisualizationRenderer(props) {
     options.paginationSize = props.context === "widget" ? "small" : "default";
   }
 
+  // Build a friendly file name that optionally appends active filters.
+  // This gets consumed by Plotly's export filename helper (gd.dataset.queryName)
+  // in `viz-lib/src/visualizations/chart/plotly/index.ts`.
+  const baseName = (options && options.queryName) || props.queryName || visualization.name;
+  
+  // Generate filename using the centralized utility
+  const fullName = generateVisualizationFilename({
+    baseName,
+    filters,
+    queryParams
+  });
+  
+  options.queryName = fullName;
+
   return (
     <Renderer
       key={`visualization${visualization.id}`}
@@ -85,7 +100,6 @@ export default function VisualizationRenderer(props) {
       options={options}
       data={filteredData}
       visualizationName={visualization.name}
-      addonBefore={showFilters && <Filters filters={filters} onChange={handleFiltersChange} />}
     />
   );
 }
@@ -93,14 +107,16 @@ export default function VisualizationRenderer(props) {
 VisualizationRenderer.propTypes = {
   visualization: VisualizationType.isRequired,
   queryResult: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  showFilters: PropTypes.bool,
   filters: FiltersType,
   onFiltersChange: PropTypes.func,
   context: PropTypes.oneOf(["query", "widget"]).isRequired,
+  queryName: PropTypes.string,
+  queryParams: PropTypes.object,
 };
 
 VisualizationRenderer.defaultProps = {
-  showFilters: true,
   filters: [],
   onFiltersChange: () => {},
+  queryName: null,
+  queryParams: null,
 };
