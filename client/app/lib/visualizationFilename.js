@@ -89,7 +89,7 @@ function formatParamValue(v) {
           return `${diffDays}_days`;
         }
       }
-      return `${formatForFilename(startM)}--${formatForFilename(endM)}`;
+      return `${formatForFilename(startM)}-${formatForFilename(endM)}`;
     }
     // Fallback: flatten object into key-value pairs
     return Object.keys(v)
@@ -103,7 +103,7 @@ function formatParamValue(v) {
       const s = moment(parts[0]);
       const e = moment(parts[1]);
       if (s.isValid() && e.isValid()) {
-        return `${formatForFilename(s)}--${formatForFilename(e)}`;
+        return `${formatForFilename(s)}-${formatForFilename(e)}`;
       }
     }
     return formatDynamicRangeIfNeeded(v);
@@ -136,11 +136,143 @@ function buildActiveFilterParts(filters) {
 }
 
 /**
+ * Attempts to get displayed parameter value from DOM
+ * @param {string} paramName - Parameter name
+ * @returns {string|null} - Displayed text if found, null otherwise
+ */
+function getParameterDisplayFromDOM(paramName) {
+  try {
+    // Try to find the parameter block in the DOM
+    const parameterBlock = document.querySelector(`[data-test="ParameterBlock-${paramName}"]`);
+    if (!parameterBlock) return null;
+    
+    // Look for the displayed selection content
+    const selectionContent = parameterBlock.querySelector('.ant-select-selection-item-content');
+    if (selectionContent && selectionContent.textContent) {
+      const displayText = selectionContent.textContent.trim();
+      if (displayText && displayText !== '') {
+        return sanitizeFilename(displayText.replace(/\s+/g, "_"));
+      }
+    }
+    
+    // For multiple selections, look for multiple items
+    const selectionItems = parameterBlock.querySelectorAll('.ant-select-selection-item');
+    if (selectionItems.length > 0) {
+      const displayTexts = Array.from(selectionItems)
+        .map(item => {
+          const content = item.querySelector('.ant-select-selection-item-content');
+          return content ? content.textContent.trim() : '';
+        })
+        .filter(text => text !== '');
+      
+      if (displayTexts.length > 0) {
+        return sanitizeFilename(displayTexts.join('-').replace(/\s+/g, "_"));
+      }
+    }
+    
+    return null;
+  } catch (e) {
+    // Ignore DOM access errors in non-browser environments
+    return null;
+  }
+}
+
+/**
+ * Attempts to resolve parameter value to its display title from dropdown options
+ * @param {string} paramName - Parameter name
+ * @param {*} value - Parameter value (ID or array of IDs)
+ * @param {Array} filters - Dashboard filters array (may contain dropdown options)
+ * @returns {string} - Display title if found, otherwise smart-named or original value
+ */
+function resolveDropdownTitle(paramName, value, filters) {
+  // First, try to get the displayed text from the DOM (most accurate for multi-select)
+  const domDisplayText = getParameterDisplayFromDOM(paramName);
+  if (domDisplayText) {
+    return domDisplayText;
+  }
+  
+  // Handle array values (multi-select parameters)
+  if (Array.isArray(value)) {
+    // If it's a large array, use a summary name
+    if (value.length > 3) {
+      const smartNames = {
+        'workAreaId': 'All_Areas',
+        'work_area_id': 'All_Areas',
+        'departmentId': 'All_Depts',
+        'department_id': 'All_Depts',
+        'categoryId': 'All_Categories',
+        'category_id': 'All_Categories',
+        'locationId': 'All_Locations',
+        'location_id': 'All_Locations',
+        'userId': 'All_Users',
+        'user_id': 'All_Users',
+      };
+      
+      const summaryName = smartNames[paramName];
+      if (summaryName) {
+        return summaryName;
+      }
+      
+      return `Multiple_${paramName.replace(/Id$/, '').replace(/_id$/, '')}`;
+    }
+    
+    // For smaller arrays, try to resolve individual items
+    return value.map(v => resolveDropdownTitle(paramName, v, filters)).join('-');
+  }
+  
+  // Single value resolution - try to find in dashboard filters
+  const filterVariations = [
+    paramName,
+    `${paramName}::filter`,
+    `${paramName}__filter`,
+    paramName.replace(/Id$/, ''), // workAreaId -> workArea
+    paramName.replace(/_id$/, ''), // work_area_id -> work_area
+  ];
+  
+  for (const filterName of filterVariations) {
+    const filter = (filters || []).find(f => f.name === filterName);
+    if (filter && filter.values && filter.current !== undefined) {
+      // Check if current value matches and has a friendly display
+      if (String(filter.current) === String(value)) {
+        // Use the friendly name if available, otherwise the current value
+        const displayValue = filter.friendlyName || filter.name;
+        if (displayValue !== filterName) {
+          return sanitizeFilename(displayValue.replace(/\s+/g, "_"));
+        }
+      }
+    }
+  }
+  
+  // Smart naming based on common patterns for single values
+  const smartNames = {
+    'workAreaId': 'Area',
+    'work_area_id': 'Area',
+    'departmentId': 'Dept',
+    'department_id': 'Dept',
+    'categoryId': 'Category',
+    'category_id': 'Category',
+    'locationId': 'Location',
+    'location_id': 'Location',
+    'userId': 'User',
+    'user_id': 'User',
+  };
+  
+  const smartName = smartNames[paramName];
+  if (smartName) {
+    return `${smartName}_${value}`;
+  }
+  
+  // Fallback: return the original value
+  return String(value);
+}
+
+/**
  * Builds parameter suffix from query parameters
  * @param {Object} queryParams - Query parameter object
+ * @param {Array} filters - Dashboard filters array for title resolution
  * @returns {Array} - Array of formatted parameter parts
  */
-function buildActiveParamParts(queryParams) {
+function buildActiveParamParts(queryParams, filters = []) {
   const activeParamParts = [];
   
   if (queryParams && typeof queryParams === "object") {
@@ -148,16 +280,40 @@ function buildActiveParamParts(queryParams) {
       const value = queryParams[p];
       if (value !== undefined && value !== null && value !== "") {
         const vals = Array.isArray(value) ? value : [value];
-        const joined = vals
-          .filter(v => v !== null && v !== undefined)
-          .map(v => formatParamValue(v))
-          .join("-");
         const paramName = String(p).replace(/^p_w\d+_/, "").replace(/^p_/, "");
         if (EXCLUDED_PARAM_NAMES.includes(paramName)) {
           return;
         }
+        
+        // Try to resolve dropdown titles for known dropdown parameters
+        let resolvedVals;
+        
+        // Handle the entire parameter value as a unit (important for multi-select)
+        if ((paramName.includes("Id") || paramName.includes("_id")) && Array.isArray(value)) {
+          // For array parameters, resolve the entire array at once
+          const title = resolveDropdownTitle(paramName, value, filters);
+          resolvedVals = [title];
+        } else {
+          // Handle individual values
+          resolvedVals = vals
+            .filter(v => v !== null && v !== undefined)
+            .map(v => {
+              // Special handling for workAreaId and similar ID parameters
+              if (paramName.includes("Id") || paramName.includes("_id")) {
+                const title = resolveDropdownTitle(paramName, v, filters);
+                return title;
+              }
+              return formatParamValue(v);
+            });
+        }
+        
+        const joined = resolvedVals.join("-");
+        
         // For dateRange param, omit the param name and use just the value for nicer filenames
         if (paramName === "dateRange") {
+          activeParamParts.push(`${joined}`);
+        } else if (paramName.includes("Id") || paramName.includes("_id")) {
+          // For ID parameters, omit the parameter name prefix for cleaner filenames
           activeParamParts.push(`${joined}`);
         } else {
           activeParamParts.push(`${paramName}-${joined}`);
@@ -179,12 +335,33 @@ function buildActiveParamParts(queryParams) {
         const v = locationParams[k];
         if (v !== undefined && v !== null && v !== "") {
           const vals = Array.isArray(v) ? v : [v];
-          const joined = vals
-            .filter(vv => vv !== null && vv !== undefined)
-            .map(vv => formatParamValue(vv))
-            .join("-");
+          
+          // Apply same dropdown title resolution as above
+          let resolvedVals;
+          
+          // Handle array parameters consistently
+          if ((paramName.includes("Id") || paramName.includes("_id")) && Array.isArray(v)) {
+            const title = resolveDropdownTitle(paramName, v, filters);
+            resolvedVals = [title];
+          } else {
+            resolvedVals = vals
+              .filter(vv => vv !== null && vv !== undefined)
+              .map(vv => {
+                // Special handling for workAreaId and similar ID parameters
+                if (paramName.includes("Id") || paramName.includes("_id")) {
+                  const title = resolveDropdownTitle(paramName, vv, filters);
+                  return title;
+                }
+                return formatParamValue(vv);
+              });
+          }
+          
+          const joined = resolvedVals.join("-");
           if (joined !== "") {
             if (paramName === "dateRange") {
+              activeParamParts.push(`${joined}`);
+            } else if (paramName.includes("Id") || paramName.includes("_id")) {
+              // For ID parameters, omit the parameter name prefix for cleaner filenames
               activeParamParts.push(`${joined}`);
             } else {
               activeParamParts.push(`${paramName}-${joined}`);
@@ -216,7 +393,7 @@ export function generateVisualizationFilename({ baseName, filters = [], queryPar
   }
   
   const activeFilterParts = FILENAME_CONFIG.includeFilters ? buildActiveFilterParts(filters) : [];
-  const activeParamParts = FILENAME_CONFIG.includeParameters ? buildActiveParamParts(queryParams) : [];
+  const activeParamParts = FILENAME_CONFIG.includeParameters ? buildActiveParamParts(queryParams, filters) : [];
   
   const paramSuffix = activeParamParts.length ? `_${activeParamParts.join("_")}` : "";
   const filterSuffix = activeFilterParts.length ? `_${activeFilterParts.join("_")}` : "";

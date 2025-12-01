@@ -116,7 +116,7 @@ describe("VisualizationRenderer", () => {
     expect(queryName).toContain("12-11-2025_14-41--13-11-2025_14-41");
   });
 
-  test("excludes workAreaId from filename", () => {
+  test("includes workAreaId with smart naming in filename (no prefix)", () => {
     const queryResult = createQueryResult({ columns: [], rows: [], filters: [] });
     const visualization = { id: 123, type: "CHART", name: "Cost - Forms - Count Submissions Daily", options: {} };
     const params = { workAreaId: 123, dateRange: "d_last_7_days" };
@@ -126,7 +126,7 @@ describe("VisualizationRenderer", () => {
     const renderer = wrapper.find(WrappedRenderer);
     const opts = renderer.props().options || {};
     const queryName = opts.queryName;
-    expect(queryName).not.toContain("workAreaId");
-    expect(queryName).toContain("dateRange-7_days");
+    expect(queryName).toContain("Area_123"); // Should use smart naming without prefix
+    expect(queryName).toContain("7_days");
   });
 });

@@ -5,8 +5,8 @@
 // Parameters to exclude from filename generation
 // These are typically internal IDs or preferences that shouldn't appear in exported filenames
 export const EXCLUDED_PARAM_NAMES = [
-  "workAreaId",
-  "work_area_id",
+  // "workAreaId", // Enabled for filename inclusion with title resolution
+  // "work_area_id", // Enabled for filename inclusion with title resolution
   // Add more excluded parameters here as needed
 ];
 
