@@ -299,6 +299,7 @@ class VisualizationWidget extends React.Component {
               context="widget"
               queryName={widget.getQuery().name}
               queryParams={widget.getQuery().getParameters().getExecutionValues()}
+              query={widget.getQuery()}
             />
           </div>
         );

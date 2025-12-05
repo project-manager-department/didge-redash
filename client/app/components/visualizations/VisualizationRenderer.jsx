@@ -84,11 +84,16 @@ export default function VisualizationRenderer(props) {
   // in `viz-lib/src/visualizations/chart/plotly/index.ts`.
   const baseName = (options && options.queryName) || props.queryName || visualization.name;
   
+  // Get parameter definitions from query if available
+  const parameterDefs = props.query ? props.query.getParametersDefs() : [];
+  
   // Generate filename using the centralized utility
   const fullName = generateVisualizationFilename({
     baseName,
     filters,
-    queryParams
+    queryParams,
+    parameterDefs,
+    query: props.query
   });
   
   options.queryName = fullName;
@@ -112,6 +117,7 @@ VisualizationRenderer.propTypes = {
   context: PropTypes.oneOf(["query", "widget"]).isRequired,
   queryName: PropTypes.string,
   queryParams: PropTypes.object,
+  query: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 VisualizationRenderer.defaultProps = {
@@ -119,4 +125,5 @@ VisualizationRenderer.defaultProps = {
   onFiltersChange: () => {},
   queryName: null,
   queryParams: null,
+  query: null,
 };
