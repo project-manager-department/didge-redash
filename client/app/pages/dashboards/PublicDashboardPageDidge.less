@@ -1651,5 +1651,21 @@ body.pdf-export {
       overflow: visible !important;
       text-overflow: clip !important;
     }
+
+    // 5. Avoid slicing widgets across PDF page boundaries.
+    //    Without this, a widget that lands near the bottom of a page
+    //    gets cut in half — the top portion on one page, the rest
+    //    invisible on the next.
+    .widget-wrapper,
+    .tile,
+    .parameter-block {
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+    }
+    // Keep widget headers attached to their bodies (no orphaned titles).
+    .t-header {
+      page-break-after: avoid !important;
+      break-after: avoid !important;
+    }
   }
 }
