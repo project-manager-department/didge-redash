@@ -105,11 +105,23 @@ RUN /etc/poetry/bin/poetry cache clear pypi --all
 
 COPY pyproject.toml poetry.lock ./
 
+# Pin build-time tools so legacy sdists in the lockfile can compile.
+#   - setuptools<72: keeps the distutils shim (PEP 632) for sqlalchemy 1.3.x
+#   - wheel: needed by sdists running bdist_wheel
+RUN pip install --no-cache-dir "setuptools<72" "wheel"
+
+# Force setuptools to use Python's stdlib distutils on Python 3.10.
+ENV SETUPTOOLS_USE_DISTUTILS=stdlib
+
 ARG POETRY_OPTIONS="--no-root --no-interaction --no-ansi"
-# for LDAP authentication, install with `ldap3` group
-# disabled by default due to GPL license conflict
-ARG install_groups="main,all_ds,dev"
-RUN /etc/poetry/bin/poetry install --only $install_groups $POETRY_OPTIONS
+# Only install the data sources we actually use.
+# Postgres support comes from psycopg2-binary in the main group; we add
+# pymongo separately to keep MongoDB support without pulling the whole
+# all_ds group (which contains cassandra-driver, impyla, snowflake, etc.
+# that fail to build on Python 3.10 / modern setuptools).
+ARG install_groups="main,dev"
+RUN /etc/poetry/bin/poetry install --only $install_groups $POETRY_OPTIONS \
+ && pip install --no-cache-dir "pymongo[srv,tls]==4.6.3"
 
 COPY --chown=redash . /app
 COPY --from=frontend-builder --chown=redash /frontend/client/dist /app/client/dist
