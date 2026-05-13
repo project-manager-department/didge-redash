@@ -1604,3 +1604,52 @@ body {
     }
   }
 }
+// =============================================================
+// PDF Export Mode
+// Puppeteer should add `pdf-export` class to <body> before calling
+// page.pdf(). Optionally also set a width via:
+//   document.body.classList.add('pdf-export');
+// Then:
+//   await page.pdf({
+//     width: '1280px',
+//     printBackground: true,
+//     margin: { top: '10mm', bottom: '10mm', left: '10mm', right: '10mm' },
+//   });
+// All overrides scoped under body.pdf-export so screen view is untouched.
+// =============================================================
+
+// MINIMAL version — keeps the dashboard's original react-grid-layout intact.
+// Only fixes things that don't translate cleanly into a static PDF render.
+body.pdf-export {
+  // 1. Preserve background colors & gradients (Chromium strips them
+  //    by default when generating PDFs).
+  &,
+  *,
+  *::before,
+  *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  // 2. Hide scrollbars — they sometimes render as visible bars/lines in PDF.
+  ::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
+  * { scrollbar-width: none !important; }
+
+  .public-dashboard-page {
+    // 3. Hide interactive-only chrome that doesn't belong in a static PDF.
+    .parameter-apply-button,
+    .modebar-container,
+    .modebar,
+    .hoverlayer {
+      display: none !important;
+    }
+
+    // 4. Don't truncate widget titles with ellipsis — wrap so the full
+    //    title is readable in the report.
+    .t-header .query-link {
+      white-space: normal !important;
+      overflow: visible !important;
+      text-overflow: clip !important;
+    }
+  }
+}
